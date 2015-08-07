@@ -36,7 +36,7 @@ let data = {
   ]
 };
 
-moduleForComponent('sortable-table', 'Unit | Component | sortable table', {
+moduleForComponent('sort-filter-table', 'Unit | Component | sort filter table', {
   unit: true,
 
   beforeEach: function() {
