@@ -4,7 +4,7 @@ A table that can be sorted and filtered.
 
 ## Usage
 
-pass ember objects directly if not using POJO
+Todo...pass ember objects directly if not using POJO
 
 ## Installation
 
