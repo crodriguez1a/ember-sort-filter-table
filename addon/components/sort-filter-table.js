@@ -14,9 +14,9 @@ const {
 const { keys } = Object;
 
 /**
-  Sortable Table component
+  Sortable Filterable Table Component
 
-  @class SortableTable
+  @class SortFilterTable
   @extends Ember.Component
 */
 export default Ember.Component.extend({
@@ -74,12 +74,19 @@ export default Ember.Component.extend({
   }),
 
   /**
+    Store separator for headers
+
     @property _separator
+    @returns String
+    @private
   */
   _separator: null,
 
   /**
+    Replaces hyphens or underscores with spaces (used to prettify headers)
+
     @method _handleUnderscoresHyphens
+    @private
   */
   _handleUnderscoresHyphens(str) {
     if ((/-/).test(str)) {

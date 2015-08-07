@@ -4,21 +4,29 @@ html {
 }
 
 table {
-  border-bottom: 1px solid #ccc;
-  border-left: 1px solid #ccc;
+  border: 1px solid #ccc;
   border-spacing: 0;
   border-collapse: separate;
 }
 
 table td, table th {
-  border-right: 1px solid #ccc;
-  border-top: 1px solid #ccc;
   padding: 0.5em;
   text-align: left;
 }
 
+table tr:nth-child(odd) {
+  background: #fafafa;
+}
+
 table th {
+  background: white;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   text-transform: capitalize;
+}
+
+table th:last-of-type {
+  border-right: none;
 }
 
 input {

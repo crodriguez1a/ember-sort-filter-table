@@ -1,5 +1,5 @@
 {
-  "name": "ember-sortable-table",
+  "name": "ember-sort-filter-table",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {

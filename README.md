@@ -1,4 +1,4 @@
-# Ember-sortable-table
+# ember-sort-filter-table
 
 This README outlines the details of collaborating on this Ember addon.
 

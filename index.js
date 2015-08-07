@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-sortable-table'
+  name: 'ember-sort-filter-table'
 };

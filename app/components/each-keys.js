@@ -1,2 +1,2 @@
-import EachKeys from 'ember-sortable-table/components/each-keys';
+import EachKeys from 'ember-sort-filter-table/components/each-keys';
 export default EachKeys;
