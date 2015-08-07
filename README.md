@@ -1,6 +1,6 @@
 # ember-sort-filter-table
 
-This README outlines the details of collaborating on this Ember addon.
+A table that can be sorted and filtered.
 
 ## Usage
 
