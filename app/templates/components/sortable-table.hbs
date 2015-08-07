@@ -1,0 +1,51 @@
+<div class="sortable-table">
+  <table>
+    {{#if table}}
+    <thead>
+      {{#if label}}
+      <tr>
+        <th colspan="{{totalColumns}}">
+          {{label}}
+        </th>
+      </tr>
+      {{/if}}
+      <tr>
+      {{#each labels as |label|}}
+        <th>
+          <a href="#" class="sort" {{action "sortBy" label}}>{{label}}</a>
+        </th>
+      {{/each}}
+      </tr>
+
+      {{#if filterable}}
+        <tr class="filter">
+          <th colspan="{{totalColumns}}">
+            {{input value=filter placeholder="Filter"}}
+          </th>
+        </tr>
+      {{/if}}
+
+    </thead>
+    <tbody>
+      {{#each sortedRows as |row|}}
+        {{#unless row._filtered}}
+          {{#component "each-keys" object=row as |key value|}}
+            <td>{{value}}</td>
+          {{/component}}
+        {{/unless}}
+      {{/each}}
+    </tbody>
+    {{else}}
+      <thead>
+        <tr>
+          <th>Empty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>n/a</td>
+        </tr>
+      </tbody>
+    {{/if}}
+  </table>
+</div>

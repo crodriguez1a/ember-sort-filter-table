@@ -1,0 +1,30 @@
+html {
+  font: 14px Arial, sans-serif;
+  font-weight: 100;
+}
+
+table {
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+table td, table th {
+  border-right: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 0.5em;
+  text-align: left;
+}
+
+table th {
+  text-transform: capitalize;
+}
+
+input {
+  font-size: 14px;
+}
+
+a {
+  font-weight: 100;
+}
