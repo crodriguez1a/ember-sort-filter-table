@@ -1,0 +1,38 @@
+html {
+  font: 14px Arial, sans-serif;
+  font-weight: 100;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+table td, table th {
+  padding: 0.5em;
+  text-align: left;
+}
+
+table tr:nth-child(odd) {
+  background: #fafafa;
+}
+
+table th {
+  background: white;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  text-transform: capitalize;
+}
+
+table th:last-of-type {
+  border-right: none;
+}
+
+input {
+  font-size: 14px;
+}
+
+a {
+  font-weight: 100;
+}

@@ -1,6 +1,10 @@
-# Ember-sortable-table
+# ember-sort-filter-table
 
 This README outlines the details of collaborating on this Ember addon.
+
+## Usage
+
+pass ember objects directly if not using POJO
 
 ## Installation
 
