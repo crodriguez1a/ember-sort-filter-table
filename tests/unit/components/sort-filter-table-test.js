@@ -1,7 +1,9 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
+const { run } = Ember;
+
 let component;
-let data = {
+let model = {
     rows: [ {
       "last_name" : "Billups",
       "first_name" : "Chauncey",
@@ -38,11 +40,11 @@ let data = {
 
 moduleForComponent('sort-filter-table', 'Unit | Component | sort filter table', {
   unit: true,
-
+  needs: ['component:each-keys'],
   beforeEach: function() {
     // creates the component instance
     component = this.subject({
-      data: data // set the data property for all component instances
+      table: model // set the data property for all component instances
     });
   }
 });
@@ -50,14 +52,8 @@ moduleForComponent('sort-filter-table', 'Unit | Component | sort filter table', 
 test('it renders', function(assert) {
   assert.expect(2);
 
-  assert.equal(component._state, 'preRender');
+  assert.equal(component._state, 'preRender', 'It pre-rendered');
 
   // Renders the component to the page
-  this.render();
-  assert.equal(component._state, 'inDOM');
-});
-
-test('headers have been assembled from object keys', function(assert) {
-  console.log(component);
-  assert.ok(false, 'headers');
+  assert.equal(component._state, 'inDOM', 'It is in the DOM');
 });
