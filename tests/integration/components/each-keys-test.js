@@ -1,10 +1,6 @@
-import Ember from 'ember';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
 
-//const { run } = Ember;
-
-let component;
 let model = {
   'last_name' : 'Billups',
   'first_name' : 'Chauncey',
@@ -25,7 +21,7 @@ let model = {
 let privateProperties = {
   'last_name' : 'Billups',
   '_isVisible': false
-}
+};
 
 moduleForComponent('each-keys', 'Integration | Component | each keys', {
   integration: true
