@@ -2,7 +2,7 @@
 
 A table addon for Ember-CLI with sorting and filtering. [Demo](http://demos.evolutionaryapps.com/EmberSortFilterTable/)
 
-##Installation
+## Installation
 		ember install ember-sort-filter-table
 
 ## Usage
@@ -48,7 +48,7 @@ The model above would display like this:
 | ------------- |:-------------:| 
 | Carlos Rodriguez | crodriguez1a      | 
 
-##Contribute
+## Contribute
 Collaboration is welcome and greatly appreciated. To collaborate on this project, follow the instructions that follow.
 
 ## Installation
