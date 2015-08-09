@@ -1,10 +1,55 @@
 # ember-sort-filter-table
 
-A table that can be sorted and filtered.
+A table addon for Ember-CLI with sorting and filtering. [Demo](http://demos.evolutionaryapps.com/EmberSortFilterTable/)
+
+##Installation
+		ember install ember-sort-filter-table
 
 ## Usage
 
-Todo...pass ember objects directly if not using POJO
+Simply pass an array of objects as the **table** parameter to the component. 
+
+		/**
+		  .js
+		  Defining a model that my table will display
+		*/
+		let model = [
+		  { 
+		    Tables: 'zebra stripes', 
+		    Are: 'are neat', 
+		    Cool: '$1' 
+		   } 
+		 ];
+		
+		...
+		
+		{{! some-template.hbs }}
+		{{component "sort-filter-table" table=model}}
+		
+The addon will assemble the table headers from the object keys and display a table like this:
+
+| [Tables](#)        | [Are](#)           | [Cool](#) |
+| ------------- |:-------------:| -----:|
+| zebra stripes | are neat      |    $1 |
+
+If your model has properties that should not be displayed in the table, use an underscore to mark that property as private.
+
+		let model = [
+		  { 
+		    name: Carlos Rodriguez,
+		    github_id: crodriguez1a,
+		    _writesCode: true
+		  }
+		];
+		
+The model above would display like this:
+		
+| [name](#)        | [github id](#)           |
+| ------------- |:-------------:| 
+| Carlos Rodriguez | crodriguez1a      | 
+
+##Contribute
+Collaboration is welcome and greatly appreciated. To collaborate on this project, follow the instructions that follow.
 
 ## Installation
 
