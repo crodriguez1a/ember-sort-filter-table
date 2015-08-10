@@ -39,8 +39,8 @@ If your model has properties that should not be displayed in the table, use an u
 		let model = {
 		  rows:[
 		    { 
-		      name: Carlos Rodriguez,
-		      github_id: crodriguez1a,
+		      name: 'Carlos Rodriguez',
+		      github_id: 'crodriguez1a',
 		      _writesCode: true
 		    }
 		  ]
