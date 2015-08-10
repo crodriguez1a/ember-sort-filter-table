@@ -7,7 +7,7 @@ A table addon for Ember-CLI with sorting and filtering. [Demo](http://demos.evol
 
 ## Usage
 
-Simply pass an array of objects as the **table** parameter to the component. 
+Simply pass an array of objects as the **table** parameter to the component. Use the key **rows** to define your array as follows:
 
 		/**
 		  .js
