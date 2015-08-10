@@ -13,13 +13,15 @@ Simply pass an array of objects as the **table** parameter to the component.
 		  .js
 		  Defining a model that my table will display
 		*/
-		let model = [
-		  { 
-		    Tables: 'zebra stripes', 
-		    Are: 'are neat', 
-		    Cool: '$1' 
-		   } 
-		 ];
+		let model = {
+		  rows: [
+		    { 
+		      Tables: 'zebra stripes', 
+		      Are: 'are neat', 
+		      Cool: '$1' 
+		     } 
+		   ]
+		 };		 
 		
 		...
 		
@@ -34,13 +36,15 @@ The addon will assemble the table headers from the object keys and display a tab
 
 If your model has properties that should not be displayed in the table, use an underscore to mark that property as private.
 
-		let model = [
-		  { 
-		    name: Carlos Rodriguez,
-		    github_id: crodriguez1a,
-		    _writesCode: true
-		  }
-		];
+		let model = {
+		  rows:[
+		    { 
+		      name: Carlos Rodriguez,
+		      github_id: crodriguez1a,
+		      _writesCode: true
+		    }
+		  ]
+		};
 		
 The model above would display like this:
 		
