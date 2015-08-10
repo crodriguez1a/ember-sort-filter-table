@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.0.0",
-    "ember-lodash": "0.0.5",
+    "ember-lodash": "0.0.5"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
