@@ -13,14 +13,5 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  app.import({
-    development: 'bower_components/lodash/lodash.js',
-    production:  'bower_components/lodash/lodash.min.js'
-  }, {
-    'lodash': [
-      'default'
-    ]
-  });
-
   return app.toTree();
 };
