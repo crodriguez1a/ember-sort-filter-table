@@ -1,6 +1,6 @@
 {
   "name": "ember-sort-filter-table",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A table addon for Ember-CLI with sorting and filtering.",
   "directories": {
     "doc": "doc",
@@ -43,7 +43,8 @@
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.0.0"
+    "ember-cli-babel": "^5.0.0",
+    "ember-lodash": "0.0.5",
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
