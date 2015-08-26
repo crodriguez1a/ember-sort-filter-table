@@ -8,7 +8,8 @@ const {
 
 const {
   sort,
-  alias
+  alias,
+  bool
 } = computed;
 
 const { keys } = Object;
@@ -20,6 +21,7 @@ const { keys } = Object;
   @extends Ember.Component
 */
 export default Ember.Component.extend({
+  hasBlock: bool('template').readOnly(),
 
   /**
    Config: Signal if filter input field should be included
@@ -85,16 +87,22 @@ export default Ember.Component.extend({
   /**
     Replaces hyphens or underscores with spaces (used to prettify headers)
 
-    @method _handleUnderscoresHyphens
+    @method _handleSeparators
     @private
   */
-  _handleUnderscoresHyphens(str) {
+  _handleSeparators(str) {
     if ((/-/).test(str)) {
+      //hyphen
       this.set('_separator', '-');
       return str.replace(/-/, ' ');
     } else if ((/_/).test(str)) {
+      //underscore
       this.set('_separator', '_');
       return str.replace(/_/g, ' ');
+    } else if ((/ /).test(str)) {
+      //space
+      this.set('_separator', ' ');
+      return str;
     } else {
       return str;
     }
@@ -110,9 +118,13 @@ export default Ember.Component.extend({
   */
   labels: computed('headers', function() {
     let headers = this.get('headers');
-    return headers.map((item) => {
-      return this._handleUnderscoresHyphens(item);
-    });
+    return Ember.A(headers.map((item) => {
+      return Ember.Object.create({
+        _key: item,
+        name: this._handleSeparators(item),
+        sort: 'null'
+      });
+    }));
   }),
 
   /**
@@ -159,13 +171,44 @@ export default Ember.Component.extend({
 
       @method sortBy
     */
-    sortBy: function(label) {
-      let header = label.replace(/ /g, this.get('_separator'));
+    sortBy(label) {
+      let header = label.get('name').replace(/ /g, this.get('_separator'));
+      let labels = this.get('labels');
+
       this.toggleProperty('_ascending');
       let direction = this.get('_ascending') ? 'asc' : 'desc';
+
+      labels.setEach('sort', null);
+      label.set('sort', direction);
+
       this.set('_sortOrder', [ header + ':' + direction ]);
     },
 
-  }
+    /**
+      Send values up to actions
 
+      @method sendEditAction
+    */
+    sendEditAction(row, key, value, action) {
+      if (this.get(action)) {
+        this.sendAction(action, {
+          'row' : row,
+          'key' : key,
+          'value' : value
+        });
+        row.toggleProperty('_editingRow');
+      }
+    },
+
+    /**
+      Display input field for editing
+
+      @method
+    */
+    editValue(row, key) {
+      let rows = this.get('_rows');
+      rows.setEach('_editingRow', null);
+      row.set('_editingRow', key);
+    },
+  }
 });

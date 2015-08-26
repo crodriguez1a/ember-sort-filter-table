@@ -1,4 +1,7 @@
 <div class="sort-filter-table">
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
   <table>
     {{#if table}}
     <thead>
@@ -11,8 +14,8 @@
       {{/if}}
       <tr>
       {{#each labels as |label|}}
-        <th>
-          <a href="#" class="sort-labels" {{action "sortBy" label}}>{{label}}</a>
+        <th class="table-header {{label.sort}} {{label._key}}">
+          <a href="#" class="sort-labels {{label.sort}}" {{action "sortBy" label}}><span>{{label.name}}</span></a>
         </th>
       {{/each}}
       </tr>
@@ -30,7 +33,23 @@
       {{#each sortedRows as |row|}}
         {{#unless row._filtered}}
           {{#component "each-keys" object=row as |key value|}}
-            <td>{{value}}</td>
+            <td>
+              {{#if editable}}
+                {{#if (eq row._editingRow key)}}
+                  <ul class="edit-field">
+                    <li class="edit-input">{{input value=value}}</li>
+                    <li class="edit-buttons">
+                      <button class="cancel-edit" {{action "sendEditAction" row key value "cancel"}}>Cancel</button>
+                      <button class="send-edit" {{action "sendEditAction" row key value "edit"}}>Edit</button>
+                    </li>
+                  </ul>
+                {{else}}
+                  <a href="#" class="edit-value" {{action "editValue" row key}}>{{value}}</a>
+                {{/if}}
+              {{else}}
+                {{value}}
+              {{/if}}
+            </td>
           {{/component}}
         {{/unless}}
       {{/each}}
@@ -48,4 +67,5 @@
       </tbody>
     {{/if}}
   </table>
+  {{/if}}
 </div>
