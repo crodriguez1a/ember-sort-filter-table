@@ -1,17 +1,51 @@
 html {
   font: 14px Arial, sans-serif;
   font-weight: 100;
+  color: #555;
+}
+
+section {
+  display: block;
+  margin-bottom: 5em;
+}
+
+h1, h2, h3 {
+  font-weight: 100;
+}
+
+h2 span.version {
+  font-size: 0.6em;
+  color: #999;
+  font-family: Consolas, monospace;
+}
+
+h3, h4 {
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+h4 {
+  font-weight: 300;
+}
+
+a {
+  color: #3399cc;
 }
 
 table {
+  width: 100%;
   border: 1px solid #ccc;
   border-spacing: 0;
   border-collapse: separate;
 }
 
 table td, table th {
-  padding: 0.5em;
+  padding: 0.65em;
   text-align: left;
+  vertical-align: top;
 }
 
 table tr:nth-child(odd) {
@@ -25,8 +59,55 @@ table th {
   text-transform: capitalize;
 }
 
+table th a, table th a span {
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: 0.95em;
+}
+
+table th a:after {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.65em;
+  max-height: 0.5em;
+  padding: 1px 0 0 0.25em;
+  font-family: monospace;
+}
+
+table th a.asc:after {
+  content: "\02C6";
+}
+
+table th a.desc:after {
+  content: '\02C7';
+}
+
 table th:last-of-type {
   border-right: none;
+}
+
+table td .edit-field {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+table td .edit-field .edit-input input {
+  padding: 0.25em;
+  color: #777;
+}
+
+table td .edit-field li {
+  padding: 0 0 0.5em 0;
+}
+
+table td a {
+  color: #555;
+}
+
+table td a:hover {
+  color: #3399cc;
 }
 
 input {
@@ -35,4 +116,28 @@ input {
 
 a {
   font-weight: 100;
+}
+
+.edit-buttons button {
+  border: none;
+  cursor: pointer;
+}
+
+.edit-buttons button.cancel-edit {
+  background: none;
+  text-decoration: underline;
+  color: #d15e5e;
+}
+
+.edit-buttons button.send-edit {
+  background: #3399cc;
+  color: white;
+  float: right;
+}
+
+pre {
+  background: #f1f1f1;
+  color: #777;
+  border: 1px solid #d9d9d9;
+  border-radius: 0.35em;
 }

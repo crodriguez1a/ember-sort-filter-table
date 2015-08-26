@@ -79,6 +79,17 @@ let numericSort = {
   ]
 };
 
+let spaces = {
+  rows: [
+    {
+      'has some spaces': true
+    },
+    {
+      'has some spaces': false
+    }
+  ]
+};
+
 let emberObject = Ember.Object.create({
   rows: Ember.A([
     Ember.Object.create({
@@ -113,8 +124,8 @@ test('it assembles header labels', function(assert) {
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
 });
 
-test('it handles headers with underscores as well as hyphens', function(assert) {
-  assert.expect(2);
+test('it handles headers with underscores, hyphens, or spaces', function(assert) {
+  assert.expect(3);
   //hyphenated keys
   component.set('table', hyphen);
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use hyphens, correct number of labels are in DOM and in sync with model');
@@ -123,6 +134,12 @@ test('it handles headers with underscores as well as hyphens', function(assert) 
   run(() => {
     component.set('table', underscore);
     assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use underscores, correct number of labels are in DOM and in sync with model');
+  });
+
+  //keys with spaces
+  run(() => {
+    component.set('table', spaces);
+    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use spaces, correct number of labels are in DOM and in sync with model');
   });
 
 });
@@ -135,10 +152,10 @@ test('it sorts alphabetically', function(assert) {
   let $sortLabel = this.$('.sort-labels');
 
   $sortLabel.click();
-  assert.equal(this.$().find('tbody td').first().text(), 'zeta', 'Table was sorted alphabetically');
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'zeta', 'Table was sorted alphabetically');
 
   $sortLabel.click();
-  assert.equal(this.$().find('tbody td').first().text(), 'alpha', 'Table was sorted again in the reverse');
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'alpha', 'Table was sorted again in the reverse');
 
 });
 
@@ -150,25 +167,25 @@ test('it sorts numerically', function(assert) {
   let $sortLabel = this.$('.sort-labels');
 
   $sortLabel.click();
-  assert.equal(this.$().find('tbody td').first().text(), '1', 'Table was sorted numerically');
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '1', 'Table was sorted numerically');
 
   $sortLabel.click();
-  assert.equal(this.$().find('tbody td').first().text(), '0', 'Table was sorted again in the reverse');
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '0', 'Table was sorted again in the reverse');
 });
 
 test('it filters appropriately', function(assert) {
   assert.expect(2);
 
   component.setProperties({
-    'table' : sample,
-    'filter': partialFilter
+    'table'  : sample,
+    'filter' : partialFilter
   });
   assert.equal(this.$().find('tbody tr').length, 1, 'When a filter is applied, the number of table rows in the DOM reduces accordingly');
 
   run(() => {
     component.setProperties({
-      'table' : sample,
-      'filter': multiFilter
+      'table'  : sample,
+      'filter' : multiFilter
     });
     assert.ok(this.$().find('tbody tr').length > 0, 'When a filter using two query terms (eg., John Doe) is applied, a match is found');
   });
@@ -181,5 +198,59 @@ test('it handles both POJOs and Ember Objects in the model', function(assert) {
   component.set('table', emberObject);
   assert.equal(this.$().find('tbody tr').length, 1, 'When an Ember Object is passed, DOM is populated accordingly');
 });
+
+test('it toggles to edit mode', function(assert) {
+  assert.expect(3);
+
+  component.setProperties({
+    'table'    : sample,
+    'editable' : true,
+    'edit'     : 'myEditAction',
+    'cancel'   : 'myCancelAction'
+  });
+
+  let $editValue = this.$('.edit-value:first');
+  $editValue.click();
+
+  assert.ok(this.$().find('.edit-field:first').length > 0, 'An editable value was clicked, its corresponding form is displayed');
+  assert.ok(this.$('.send-edit:first').length > 0, 'An edit button is available');
+  assert.ok(this.$('.cancel-edit:first').length > 0, 'A cancel button is available');
+
+});
+
+test('it sends up the params up to the controller', function(assert) {
+  assert.expect(2);
+
+  let editValues;
+  let cancelValues;
+
+  //Simulate controller
+  let myEditAction = (params) => {
+    editValues = params;
+  };
+
+  let myCancelAction = (params) => {
+    cancelValues = params;
+  };
+
+  component.setProperties({
+    'table'    : sample,
+    'editable' : true,
+    'edit'     : myEditAction,
+    'cancel'   : myCancelAction
+  });
+
+  this.$('.edit-value:first').click();
+  this.$('.send-edit:first').click();
+  assert.ok(!!editValues, 'The controller\'s edit action received parameters');
+
+  run(() => {
+    this.$('.edit-value:first').click();
+    this.$('.cancel-edit:first').click();
+    assert.ok(!!cancelValues, 'The controller\'s cancel action received parameters');
+  });
+
+});
+
 
 //TODO: test when model changes asynchronously from service

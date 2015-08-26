@@ -1,4 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import { registerHelper } from 'ember-truth-helpers/utils/register-helper';
+import { equalHelper } from 'ember-truth-helpers/helpers/equal';
 
 let component;
 let model = {
@@ -40,6 +42,7 @@ moduleForComponent('sort-filter-table', 'Unit | Component | sort filter table', 
   unit: true,
   needs: ['component:each-keys'],
   beforeEach: function() {
+    registerHelper('eq', equalHelper);
     component = this.subject({
       table: model
     });
