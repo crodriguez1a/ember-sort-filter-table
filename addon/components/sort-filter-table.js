@@ -91,18 +91,10 @@ export default Ember.Component.extend({
     @private
   */
   _handleSeparators(str) {
-    if ((/-/).test(str)) {
-      //hyphen
-      this.set('_separator', '-');
-      return str.replace(/-/, ' ');
-    } else if ((/_/).test(str)) {
-      //underscore
-      this.set('_separator', '_');
-      return str.replace(/_/g, ' ');
-    } else if ((/ /).test(str)) {
-      //space
-      this.set('_separator', ' ');
-      return str;
+    let separator = str.match(/[-  _]/);
+    if (separator && separator.length) {
+      this.set('_separator', separator[0]);
+      return str.replace(new RegExp(separator[0]), ' ');
     } else {
       return str;
     }
