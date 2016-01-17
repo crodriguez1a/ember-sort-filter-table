@@ -90,6 +90,15 @@ let spaces = {
   ]
 };
 
+let camelCase = {
+  rows: [
+    {
+      'camelCase': true,
+      'caseCamel': true
+    }
+  ]
+};
+
 let emberObject = Ember.Object.create({
   rows: Ember.A([
     Ember.Object.create({
@@ -124,8 +133,8 @@ test('it assembles header labels', function(assert) {
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
 });
 
-test('it handles headers with underscores, hyphens, or spaces', function(assert) {
-  assert.expect(3);
+test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
+  assert.expect(4);
   //hyphenated keys
   component.set('table', hyphen);
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use hyphens, correct number of labels are in DOM and in sync with model');
@@ -140,6 +149,12 @@ test('it handles headers with underscores, hyphens, or spaces', function(assert)
   run(() => {
     component.set('table', spaces);
     assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use spaces, correct number of labels are in DOM and in sync with model');
+  });
+
+  //keys with camel case
+  run(() => {
+    component.set('table', camelCase);
+    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use camel case, correct number of labels are in DOM and in sync with model');
   });
 
 });
