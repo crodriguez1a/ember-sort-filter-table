@@ -92,7 +92,7 @@ export default Ember.Component.extend({
   */
   _handleSeparators(str) {
     let separator = str.match(/[-  _]/);
-    if (separator.length) {
+    if (separator && separator.length) {
       this.set('_separator', separator[0]);
       return str.replace(new RegExp(separator[0]), ' ');
     } else {
