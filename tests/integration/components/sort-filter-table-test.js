@@ -99,6 +99,14 @@ let emberObject = Ember.Object.create({
 let partialFilter = 'Chau';
 let multiFilter = 'Chauncey Billups';
 
+let privateLabel = {
+  rows: [
+    {
+      '_private': 'foo'
+    }
+  ]
+};
+
 moduleForComponent('sort-filter-table', 'Integration | Component | sort filter table', {
   integration: true,
   needs: ['component:each-keys'],
@@ -120,10 +128,14 @@ test('it assembles header labels', function(assert) {
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
 });
 
+test('it exclude headers marked as private with a leading underscore', function(assert) {
+  component.set('table', privateLabel);
+  assert.equal(component.get('labels.length'), 0, 'When an object key has a leading underscore (private), exclude from DOM');
+});
+
 test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
   //hyphenated keys
   component.set('table', hyphen);
-  console.log(component.get('labels'));
 
   let labelName = component.get('labels').getEach('name')[0];
   assert.equal((/-/g).test(labelName), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
