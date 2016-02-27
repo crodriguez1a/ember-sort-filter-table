@@ -91,9 +91,10 @@ export default Ember.Component.extend({
     @private
   */
   _handleSeparators(str) {
-    //TODO: Camel Case
+    let separator = str.match(/[-  _]/g);
+    let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
+    separator = camelCase || separator;
 
-    let separator = str.match(/[-  _][A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
     if (separator && separator.length) {
       this.set('_separator', separator[0]);
       return str.replace(new RegExp(separator[0]), ' ');

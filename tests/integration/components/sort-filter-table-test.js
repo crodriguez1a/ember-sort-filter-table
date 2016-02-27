@@ -52,7 +52,7 @@ let hyphen = {
 let underscore = {
   rows: [
     {
-      'under_scored' : true
+      'under_scored_underscored' : true
     }
   ]
 };
@@ -134,27 +134,25 @@ test('it assembles header labels', function(assert) {
 });
 
 test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
-  assert.expect(4);
+  assert.expect(3);
   //hyphenated keys
   component.set('table', hyphen);
-  assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use hyphens, correct number of labels are in DOM and in sync with model');
+  let labelName = component.get('labels').getEach('name')[0];
+  assert.equal((/-/g).test(labelName), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
 
   //keys with underscores
   run(() => {
     component.set('table', underscore);
-    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use underscores, correct number of labels are in DOM and in sync with model');
-  });
+    let labelName = component.get('labels').getEach('name')[0];
+    assert.equal((/_/g).test(labelName), false, 'When object keys use underscores, labels are displayed DOM without underscores');
 
-  //keys with spaces
-  run(() => {
-    component.set('table', spaces);
-    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use spaces, correct number of labels are in DOM and in sync with model');
   });
 
   //keys with camel case
   run(() => {
     component.set('table', camelCase);
-    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use camel case, correct number of labels are in DOM and in sync with model');
+    let labelName = component.get('labels').getEach('name')[0];
+    assert.equal((/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/).test(labelName), false, 'When object keys use camel case, labels are displayed DOM with no camel casing');
   });
 
 });
