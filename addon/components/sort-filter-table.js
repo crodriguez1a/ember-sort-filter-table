@@ -103,6 +103,15 @@ export default Ember.Component.extend({
     }
   },
 
+  _stripPrivate(arr) {
+    arr.filter((item, index) => {
+      if ((/_/).test(arr[index][0])) {
+        arr.splice(index, 1);
+      }
+    });
+    return arr;
+  },
+
   /**
     Assemble pretty labels from column headers/keys
 
@@ -112,7 +121,8 @@ export default Ember.Component.extend({
 
   */
   labels: computed('headers', function() {
-    let headers = this.get('headers');
+    let headers = this._stripPrivate(this.get('headers'));
+
     return Ember.A(headers.map((item) => {
       return Ember.Object.create({
         _key: item,

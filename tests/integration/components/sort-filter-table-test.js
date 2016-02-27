@@ -79,17 +79,6 @@ let numericSort = {
   ]
 };
 
-let spaces = {
-  rows: [
-    {
-      'has some spaces': true
-    },
-    {
-      'has some spaces': false
-    }
-  ]
-};
-
 let camelCase = {
   rows: [
     {
@@ -119,7 +108,6 @@ moduleForComponent('sort-filter-table', 'Integration | Component | sort filter t
 });
 
 test('it renders', function(assert) {
-  assert.expect(2);
   assert.equal(component._state, 'preRender', 'It pre-rendered');
   this.render(hbs`
     {{component 'sort-filter-table' table=sample}}
@@ -128,15 +116,15 @@ test('it renders', function(assert) {
 });
 
 test('it assembles header labels', function(assert) {
-  assert.expect(1);
   component.set('table', sample);
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
 });
 
 test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
-  assert.expect(3);
   //hyphenated keys
   component.set('table', hyphen);
+  console.log(component.get('labels'));
+
   let labelName = component.get('labels').getEach('name')[0];
   assert.equal((/-/g).test(labelName), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
 
@@ -158,8 +146,6 @@ test('it handles headers with underscores, hyphens, spaces, or camel case', func
 });
 
 test('it sorts alphabetically', function(assert) {
-  assert.expect(2);
-
   component.set('table', alphaSort);
 
   let $sortLabel = this.$('.sort-labels');
@@ -173,8 +159,6 @@ test('it sorts alphabetically', function(assert) {
 });
 
 test('it sorts numerically', function(assert) {
-  assert.expect(2);
-
   component.set('table', numericSort);
 
   let $sortLabel = this.$('.sort-labels');
@@ -187,8 +171,6 @@ test('it sorts numerically', function(assert) {
 });
 
 test('it filters appropriately', function(assert) {
-  assert.expect(2);
-
   component.setProperties({
     'table'  : sample,
     'filter' : partialFilter
@@ -206,15 +188,11 @@ test('it filters appropriately', function(assert) {
 });
 
 test('it handles both POJOs and Ember Objects in the model', function(assert) {
-  assert.expect(1);
-
   component.set('table', emberObject);
   assert.equal(this.$().find('tbody tr').length, 1, 'When an Ember Object is passed, DOM is populated accordingly');
 });
 
 test('it toggles to edit mode', function(assert) {
-  assert.expect(3);
-
   component.setProperties({
     'table'    : sample,
     'editable' : true,
@@ -232,8 +210,6 @@ test('it toggles to edit mode', function(assert) {
 });
 
 test('it sends up the params up to the controller', function(assert) {
-  assert.expect(2);
-
   let editValues;
   let cancelValues;
 

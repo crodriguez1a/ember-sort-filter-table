@@ -10,21 +10,24 @@ export default Ember.Route.extend({
             'november': '48.15%',
             'december': '46.22%',
             'change'  : '-1.93%',
-            'relative': '-4.00%'
+            'relative': '-4.00%',
+            '_private': 'foo'
           },
           {
             'browser' : 'Firefox',
             'november': '16.76%',
             'december': '16.34%',
             'change'  : '-0.42%',
-            'relative': '-2.50%'
+            'relative': '-2.50%',
+            '_private': 'bar'
           },
           {
             'browser' : 'Safari',
             'november': '4.45%',
             'december': '4.24%',
             'change'  : '-0.21%',
-            'relative': '-4.70%'
+            'relative': '-4.70%',
+            '_private': 'foo'
           }
         ]
       },
