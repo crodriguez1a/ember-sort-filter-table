@@ -1,6 +1,26 @@
-<h2 id="title">ember-sort-filter-table <span class="version">v0.1.7</span></h2>
-
+<h2 id="title"><i class="fa fa-table"></i> ember-sort-filter-table <span class="version">v0.1.8</span></h2>
+<hr>
 <section>
+  <p class="version-notes">
+    <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
+     <ul>
+       <li>
+         0.1.8
+         <ul>
+           <li>HTML markup support in model</li>
+         </ul>
+       </li>
+       <li>
+         0.1.7
+         <ul>
+           <li>Camel case row header support</li>
+           <li>Component short name alias <code>sf-table</code></li>
+         </ul>
+       </li>
+     </ul>
+  </p>
+
+  <hr>
   <h3>Basic Example</h3>
   {{sf-table table=model.small }}
 
@@ -14,36 +34,39 @@
   <p>
     <h4>Route</h4>
     <pre>
+  //Using font awesome icons (not included)
+
   myTableModel: {
-      rows: [
-        {
-          'Browser' : 'Chrome',
-          'November': '48.15%',
-          'December': '46.22%',
-          'change'  : '-1.93%',
-          'relative': '-4.00%'
-        },
-        {
-          'Browser' : 'Firefox',
-          'November': '16.76%',
-          'December': '16.34%',
-          'change'  : '-0.42%',
-          'relative': '-2.50%'
-        },
-        {
-          'Browser' : 'Safari',
-          'November': '4.45%',
-          'December': '4.24%',
-          'change'  : '-0.21%',
-          'relative': '-4.70%'
-        }
-      ]
-    };
+    rows: [
+      {
+        'Browser' : '&lt;i class="fa fa-chrome"/&gt; Chrome',
+        'November': '48.15%',
+        'December': '46.22%',
+        'change'  : '-1.93%',
+        'relative': '-4.00%'
+      },
+      {
+        'Browser' : '&lt;i class="fa fa-firefox"/&gt; Firefox',
+        'November': '16.76%',
+        'December': '16.34%',
+        'change'  : '-0.42%',
+        'relative': '-2.50%'
+      },
+      {
+        'Browser' : '&lt;i class="fa fa-safari"/&gt; Safari',
+        'November': '4.45%',
+        'December': '4.24%',
+        'change'  : '-0.21%',
+        'relative': '-4.70%'
+      }
+    ]
+  };
+
     </pre>
   </p>
 </section>
 
-
+<hr>
 <section>
   <h3>Editable Example</h3>
   {{sf-table table=model.big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
@@ -53,7 +76,7 @@
   &#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
     </pre>
     <p>
-    The <em>edit</em> and <em>cancel</em> actions will send up your custom action along with the following params:
+    The <em>edit</em> and <em>cancel</em> actions will return the following hash:
     <ul>
       <li>row   - parent relationship</li>
       <li>key   - property name</li>

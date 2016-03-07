@@ -1,0 +1,193 @@
+//colors
+$boulder: #555;
+$mist: #999;
+$blue: #3399cc;
+$blue-light: #D1EFFF;
+$grey: #ccc;
+$alabaster: #fafafa;
+$white: white;
+$grey-light: #777;
+$chestnut: #d15e5e;
+$seashell: #f1f1f1;
+$alto: #d9d9d9;
+$yellow: #FFDC5E;
+
+//fonts
+$font_0: Arial;
+$font_1: sans-serif;
+$font_2: Consolas;
+$font_3: monospace;
+
+//@extend-elements
+//original selectors
+//table td, table th
+%extend_1 {
+	padding: 0.65em;
+	text-align: left;
+	vertical-align: top;
+}
+
+//original selectors
+//table th a, table th a span
+%extend_2 {
+	display: inline-block;
+	vertical-align: bottom;
+	font-size: 0.95em;
+}
+
+
+html {
+	box-sizing: border-box;
+	font: 14px $font_0, $font_1;
+	font-weight: 100;
+	color: $boulder;
+	padding: 1em;
+}
+
+section {
+	display: block;
+	margin-bottom: 5em;
+}
+
+h1, h2, h3, h4 {
+	font-weight: 100;
+}
+h2 {
+	span.version {
+		font-size: 0.6em;
+		color: $mist;
+		font-family: $font_2, $font_3;
+	}
+
+	i {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+h3 {
+	margin-bottom: 0.5em;
+	font-size: 1.25em;
+}
+
+h4 {
+	margin-bottom: 0.5em;
+}
+
+a {
+	color: $blue;
+	font-weight: 100;
+}
+
+p {
+	&.version-notes {
+		ul {
+			li {
+				line-height: 1.75em;
+			}
+		}
+
+		.fa-sticky-note {
+			color: $yellow;
+		}
+	}
+}
+
+code {
+	background: $blue-light;
+	padding: 0.15em;
+}
+
+hr {
+	background: none;
+	border: none;
+	border-bottom: 1px solid $grey;
+	display: block;
+	padding-top: 1em;
+}
+
+table {
+	width: 100%;
+	border: 1px solid $grey;
+	border-spacing: 0;
+	border-collapse: separate;
+	td {
+		@extend %extend_1;
+		.edit-field {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			li {
+				padding: 0 0 0.5em 0;
+			}
+			.edit-input input {
+				padding: 0.25em;
+				color: $grey-light;
+			}
+		}
+		a {
+			color: $boulder;
+			&:hover {
+				color: $blue;
+			}
+		}
+	}
+	th {
+		@extend %extend_1;
+		background: $white;
+		border-bottom: 1px solid $grey;
+		border-right: 1px solid $grey;
+		text-transform: capitalize;
+		a {
+			@extend %extend_2;
+			span {
+				@extend %extend_2;
+			}
+			&:after {
+				position: relative;
+				display: inline-block;
+				vertical-align: top;
+				font-size: 1.65em;
+				max-height: 0.5em;
+				padding: 1px 0 0 0.25em;
+				font-family: $font_3;
+			}
+			&.asc:after {
+				content: "\02C6";
+			}
+			&.desc:after {
+				content: '\02C7';
+			}
+		}
+		&:last-of-type {
+			border-right: none;
+		}
+	}
+	tr:nth-child(odd) {
+		background: $alabaster;
+	}
+}
+input {
+	font-size: 14px;
+}
+pre {
+	background: $seashell;
+	color: $grey-light;
+	border: 1px solid $alto;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 0.35em;
+}
+.edit-buttons button {
+	border: none;
+	cursor: pointer;
+	&.cancel-edit {
+		background: none;
+		text-decoration: underline;
+		color: $chestnut;
+	}
+	&.send-edit {
+		background: $blue;
+		color: $white;
+		float: right;
+	}
+}
