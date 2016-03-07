@@ -2,45 +2,43 @@
 
 <section>
   <h3>Basic Example</h3>
-  {{component "sort-filter-table" table=model.small }}
+  {{sf-table table=model.small }}
 
   <p>
     <h4>Template</h4>
     <pre>
-      &#123;&#123;component "sort-filter-table" table=model &#125;&#125;
+  &#123;&#123;sf-table table=myTableModel&#125;&#125;
     </pre>
   </p>
 
   <p>
     <h4>Route</h4>
     <pre>
-      model() {
-        return {
-          rows: [
-            {
-              'Browser' : 'Chrome',
-              'November': '48.15%',
-              'December': '46.22%',
-              'change'  : '-1.93%',
-              'relative': '-4.00%'
-            },
-            {
-              'Browser' : 'Firefox',
-              'November': '16.76%',
-              'December': '16.34%',
-              'change'  : '-0.42%',
-              'relative': '-2.50%'
-            },
-            {
-              'Browser' : 'Safari',
-              'November': '4.45%',
-              'December': '4.24%',
-              'change'  : '-0.21%',
-              'relative': '-4.70%'
-            }
-          ]
+  myTableModel: {
+      rows: [
+        {
+          'Browser' : 'Chrome',
+          'November': '48.15%',
+          'December': '46.22%',
+          'change'  : '-1.93%',
+          'relative': '-4.00%'
+        },
+        {
+          'Browser' : 'Firefox',
+          'November': '16.76%',
+          'December': '16.34%',
+          'change'  : '-0.42%',
+          'relative': '-2.50%'
+        },
+        {
+          'Browser' : 'Safari',
+          'November': '4.45%',
+          'December': '4.24%',
+          'change'  : '-0.21%',
+          'relative': '-4.70%'
         }
-      }
+      ]
+    };
     </pre>
   </p>
 </section>
@@ -48,16 +46,16 @@
 
 <section>
   <h3>Editable Example</h3>
-  {{component "sort-filter-table" table=model.big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
+  {{sf-table table=model.big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
   <p>
     <h4>Template</h4>
     <pre>
-      &#123;&#123;component "sort-filter-table" table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
+  &#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
     </pre>
     <p>
     The <em>edit</em> and <em>cancel</em> actions will send up your custom action along with the following params:
     <ul>
-      <li>row   - parent Ember.Object of value being editing</li>
+      <li>row   - parent relationship</li>
       <li>key   - property name</li>
       <li>value - edited value</li>
     </ul>
@@ -65,14 +63,16 @@
 
     <h4>Controller</h4>
     <pre>
-      actions: {
-        myEditAction(params) {
-          // params => { row: 'Class', key: 'string', value: 'string'}
-        },
-        myCancelAction(params) {
-          // params => { row: 'Class', key: 'string', value: 'string'}
-        }
-      }
+  actions: {
+
+    myEditAction(hash) {
+      //=> { row: 'Class', key: 'string', value: 'string' }
+    },
+
+    myCancelAction(hash) {
+      //=> { row: 'Class', key: 'string', value: 'string' }
+    }
+  }
     </pre>
   </p>
 </section>
