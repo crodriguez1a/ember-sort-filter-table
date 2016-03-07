@@ -6,7 +6,7 @@ export default Ember.Route.extend({
       small: {
         rows: [
           {
-            'browser' : 'Chrome',
+            'browser' : '<i class="fa fa-chrome"/> Chrome',
             'november': '48.15%',
             'december': '46.22%',
             'change'  : '-1.93%',
@@ -14,7 +14,7 @@ export default Ember.Route.extend({
             '_private': 'foo'
           },
           {
-            'browser' : 'Firefox',
+            'browser' : '<i class="fa fa-firefox"/> Firefox',
             'november': '16.76%',
             'december': '16.34%',
             'change'  : '-0.42%',
@@ -22,7 +22,7 @@ export default Ember.Route.extend({
             '_private': 'bar'
           },
           {
-            'browser' : 'Safari',
+            'browser' : '<i class="fa fa-safari"/> Safari',
             'november': '4.45%',
             'december': '4.24%',
             'change'  : '-0.21%',
