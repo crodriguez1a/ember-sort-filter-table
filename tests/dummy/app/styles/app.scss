@@ -13,8 +13,8 @@ $alto: #d9d9d9;
 $yellow: #FFDC5E;
 
 //fonts
-$font_0: Arial;
-$font_1: sans-serif;
+$font_0: sans-serif;
+$font_1: arial;
 $font_2: Consolas;
 $font_3: monospace;
 
@@ -77,6 +77,11 @@ h4 {
 a {
 	color: $blue;
 	font-weight: 100;
+
+	&.subtitle {
+		text-decoration: none;
+		font-size: 0.9em;
+	}
 }
 
 p {
