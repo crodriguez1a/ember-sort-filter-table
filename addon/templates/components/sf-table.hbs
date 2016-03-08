@@ -1,0 +1,7 @@
+{{#if hasBlock}}
+  {{#sort-filter-table}}
+    {{yield}}
+  {{/sort-filter-table}}
+{{else}}
+  {{sort-filter-table table=table editable=editable filterable=filterable edit=edit cancel=cancel}}
+{{/if}}

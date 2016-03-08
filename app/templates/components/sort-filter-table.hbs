@@ -8,14 +8,14 @@
       {{#if label}}
       <tr>
         <th colspan="{{totalColumns}}">
-          {{label}}
+          {{{label}}}
         </th>
       </tr>
       {{/if}}
       <tr>
       {{#each labels as |label|}}
         <th class="table-header {{label.sort}} {{label._key}}">
-          <a href="#" class="sort-labels {{label.sort}}" {{action "sortBy" label}}><span>{{label.name}}</span></a>
+          <a href="#" class="sort-labels {{label.sort}}" {{action "sortBy" label}}><span>{{{label.name}}}</span></a>
         </th>
       {{/each}}
       </tr>
@@ -44,10 +44,10 @@
                     </li>
                   </ul>
                 {{else}}
-                  <a href="#" class="edit-value" {{action "editValue" row key}}>{{value}}</a>
+                  <a href="#" class="edit-value" {{action "editValue" row key}}>{{{value}}}</a>
                 {{/if}}
               {{else}}
-                {{value}}
+                {{{value}}}
               {{/if}}
             </td>
           {{/component}}

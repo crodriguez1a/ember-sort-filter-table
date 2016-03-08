@@ -1,6 +1,10 @@
 {
   "name": "ember-sort-filter-table",
+<<<<<<< HEAD
   "version": "0.1.5",
+=======
+  "version": "0.1.81",
+>>>>>>> cb582e4141b5480c3da415beb9e85804ca191397
   "description": "A table addon for Ember-CLI with sorting and filtering.",
   "directories": {
     "doc": "doc",
@@ -19,17 +23,23 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
-    "ember-cli": "1.13.7",
+    "ember-cli": "^1.13.14",
     "ember-cli-app-version": "0.4.0",
     "ember-cli-babel": "^5.1.3",
+<<<<<<< HEAD
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.0.1",
+=======
+    "ember-cli-dependency-checker": "^1.0.0",
+    "ember-cli-font-awesome": "1.5.0",
+>>>>>>> cb582e4141b5480c3da415beb9e85804ca191397
     "ember-cli-htmlbars": "0.7.9",
     "ember-cli-htmlbars-inline-precompile": "^0.1.1",
     "ember-cli-ic-ajax": "0.2.1",
     "ember-cli-inject-live-reload": "^1.3.0",
     "ember-cli-qunit": "0.3.20",
     "ember-cli-release": "0.2.3",
+    "ember-cli-sass": "5.3.0",
     "ember-cli-sri": "^1.0.1",
     "ember-cli-uglify": "^1.0.1",
     "ember-data": "1.13.7",
@@ -37,14 +47,16 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.3",
     "ember-truth-helpers": "^1.1.0",
-    "ember-try": "0.0.6"
+    "ember-try": "0.0.6",
+    "font-awesome": "4.5.0"
   },
   "keywords": [
     "ember-addon"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.0.0",
-    "ember-lodash": "0.0.5"
+    "ember-cli-htmlbars": "^1.0.3",
+    "ember-lodash": "0.0.6"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

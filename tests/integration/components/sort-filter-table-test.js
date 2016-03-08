@@ -52,7 +52,7 @@ let hyphen = {
 let underscore = {
   rows: [
     {
-      'under_scored' : true
+      'under_scored_underscored' : true
     }
   ]
 };
@@ -79,13 +79,11 @@ let numericSort = {
   ]
 };
 
-let spaces = {
+let camelCase = {
   rows: [
     {
-      'has some spaces': true
-    },
-    {
-      'has some spaces': false
+      'camelCase': true,
+      'caseCamel': true
     }
   ]
 };
@@ -101,6 +99,14 @@ let emberObject = Ember.Object.create({
 let partialFilter = 'Chau';
 let multiFilter = 'Chauncey Billups';
 
+let privateLabel = {
+  rows: [
+    {
+      '_private': 'foo'
+    }
+  ]
+};
+
 moduleForComponent('sort-filter-table', 'Integration | Component | sort filter table', {
   integration: true,
   needs: ['component:each-keys'],
@@ -110,7 +116,6 @@ moduleForComponent('sort-filter-table', 'Integration | Component | sort filter t
 });
 
 test('it renders', function(assert) {
-  assert.expect(2);
   assert.equal(component._state, 'preRender', 'It pre-rendered');
   this.render(hbs`
     {{component 'sort-filter-table' table=sample}}
@@ -119,34 +124,40 @@ test('it renders', function(assert) {
 });
 
 test('it assembles header labels', function(assert) {
-  assert.expect(1);
   component.set('table', sample);
   assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
 });
 
-test('it handles headers with underscores, hyphens, or spaces', function(assert) {
-  assert.expect(3);
+test('it exclude headers marked as private with a leading underscore', function(assert) {
+  component.set('table', privateLabel);
+  assert.equal(component.get('labels.length'), 0, 'When an object key has a leading underscore (private), exclude from DOM');
+});
+
+test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
   //hyphenated keys
   component.set('table', hyphen);
-  assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use hyphens, correct number of labels are in DOM and in sync with model');
+
+  let labelName = component.get('labels').getEach('name')[0];
+  assert.equal((/-/g).test(labelName), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
 
   //keys with underscores
   run(() => {
     component.set('table', underscore);
-    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use underscores, correct number of labels are in DOM and in sync with model');
+    let labelName = component.get('labels').getEach('name')[0];
+    assert.equal((/_/g).test(labelName), false, 'When object keys use underscores, labels are displayed DOM without underscores');
+
   });
 
-  //keys with spaces
+  //keys with camel case
   run(() => {
-    component.set('table', spaces);
-    assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'When object keys use spaces, correct number of labels are in DOM and in sync with model');
+    component.set('table', camelCase);
+    let labelName = component.get('labels').getEach('name')[0];
+    assert.equal((/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/).test(labelName), false, 'When object keys use camel case, labels are displayed DOM with no camel casing');
   });
 
 });
 
 test('it sorts alphabetically', function(assert) {
-  assert.expect(2);
-
   component.set('table', alphaSort);
 
   let $sortLabel = this.$('.sort-labels');
@@ -160,8 +171,6 @@ test('it sorts alphabetically', function(assert) {
 });
 
 test('it sorts numerically', function(assert) {
-  assert.expect(2);
-
   component.set('table', numericSort);
 
   let $sortLabel = this.$('.sort-labels');
@@ -174,8 +183,6 @@ test('it sorts numerically', function(assert) {
 });
 
 test('it filters appropriately', function(assert) {
-  assert.expect(2);
-
   component.setProperties({
     'table'  : sample,
     'filter' : partialFilter
@@ -193,15 +200,11 @@ test('it filters appropriately', function(assert) {
 });
 
 test('it handles both POJOs and Ember Objects in the model', function(assert) {
-  assert.expect(1);
-
   component.set('table', emberObject);
   assert.equal(this.$().find('tbody tr').length, 1, 'When an Ember Object is passed, DOM is populated accordingly');
 });
 
 test('it toggles to edit mode', function(assert) {
-  assert.expect(3);
-
   component.setProperties({
     'table'    : sample,
     'editable' : true,
@@ -219,8 +222,6 @@ test('it toggles to edit mode', function(assert) {
 });
 
 test('it sends up the params up to the controller', function(assert) {
-  assert.expect(2);
-
   let editValues;
   let cancelValues;
 

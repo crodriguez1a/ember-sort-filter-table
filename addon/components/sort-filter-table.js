@@ -91,13 +91,29 @@ export default Ember.Component.extend({
     @private
   */
   _handleSeparators(str) {
+<<<<<<< HEAD
     let separator = str.match(/[-  _]/);
+=======
+    let separator = str.match(/[-  _]/g);
+    let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
+    separator = camelCase || separator;
+
+>>>>>>> cb582e4141b5480c3da415beb9e85804ca191397
     if (separator && separator.length) {
       this.set('_separator', separator[0]);
       return str.replace(new RegExp(separator[0]), ' ');
     } else {
       return str;
     }
+  },
+
+  _stripPrivate(arr) {
+    arr.filter((item, index) => {
+      if ((/_/).test(arr[index][0])) {
+        arr.splice(index, 1);
+      }
+    });
+    return arr;
   },
 
   /**
@@ -109,7 +125,8 @@ export default Ember.Component.extend({
 
   */
   labels: computed('headers', function() {
-    let headers = this.get('headers');
+    let headers = this._stripPrivate(this.get('headers'));
+
     return Ember.A(headers.map((item) => {
       return Ember.Object.create({
         _key: item,
