@@ -1,4 +1,9 @@
-<h2 id="title"><i class="fa fa-table"></i> ember-sort-filter-table <span class="version">v0.1.8</span></h2>
+<h2 id="title">
+  <i class="fa fa-table"></i> ember-sort-filter-table <span class="version">v0.1.8</span>
+</h2>
+<h3>
+  <a class="subtitle" href="https://github.com/crodriguez1a/ember-sort-filter-table/fork" target="_blank"><i class="fa fa-code-fork"></i> Fork on Github</a>
+</h3>
 <hr>
 <section>
   <p class="version-notes">
@@ -8,13 +13,14 @@
          0.1.8
          <ul>
            <li>HTML markup support in model</li>
+           <li>Component short name alias <code>sf-table</code></li>
          </ul>
        </li>
        <li>
          0.1.7
          <ul>
            <li>Camel case row header support</li>
-           <li>Component short name alias <code>sf-table</code></li>
+           <li>Private keys bugfix</li>
          </ul>
        </li>
      </ul>
@@ -22,7 +28,7 @@
 
   <hr>
   <h3>Basic Example</h3>
-  {{sf-table table=model.small }}
+  {{sf-table table=model.small}}
 
   <p>
     <h4>Template</h4>
@@ -39,21 +45,21 @@
   myTableModel: {
     rows: [
       {
-        'Browser' : '&lt;i class="fa fa-chrome"/&gt; Chrome',
+        'Browser' : '&lt;i class="fa fa-chrome"&gt;&lt;/i&gt; Chrome',
         'November': '48.15%',
         'December': '46.22%',
         'change'  : '-1.93%',
         'relative': '-4.00%'
       },
       {
-        'Browser' : '&lt;i class="fa fa-firefox"/&gt; Firefox',
+        'Browser' : '&lt;i class="fa fa-firefox"&gt;&lt;/i&gt; Firefox',
         'November': '16.76%',
         'December': '16.34%',
         'change'  : '-0.42%',
         'relative': '-2.50%'
       },
       {
-        'Browser' : '&lt;i class="fa fa-safari"/&gt; Safari',
+        'Browser' : '&lt;i class="fa fa-safari"&gt;&lt;/i&gt; Safari',
         'November': '4.45%',
         'December': '4.24%',
         'change'  : '-0.21%',
@@ -89,11 +95,11 @@
   actions: {
 
     myEditAction(hash) {
-      //=> { row: 'Class', key: 'string', value: 'string' }
+      //=> { row: 'Class', key: 'String', value: 'String' }
     },
 
     myCancelAction(hash) {
-      //=> { row: 'Class', key: 'string', value: 'string' }
+      //=> { row: 'Class', key: 'String', value: 'String' }
     }
   }
     </pre>
