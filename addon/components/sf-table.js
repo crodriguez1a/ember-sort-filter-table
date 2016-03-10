@@ -1,7 +1,5 @@
-import Ember from 'ember';
-import layout from '../templates/components/sf-table';
+import SortFilterTable from 'ember-sort-filter-table/components/sort-filter-table';
 
-export default Ember.Component.extend({
-  layout: layout,
-  filterable: true
+export default SortFilterTable.extend({
+  layoutName: 'components/sort-filter-table'
 });
