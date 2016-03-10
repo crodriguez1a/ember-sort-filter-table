@@ -32,14 +32,14 @@
 
   <p>
     <h4>Template</h4>
-    <pre>
+    {{#themed-syntax lang="handlebars"}}
   &#123;&#123;sf-table table=myTableModel&#125;&#125;
-    </pre>
+    {{/themed-syntax}}
   </p>
 
   <p>
     <h4>Route</h4>
-    <pre>
+    {{#themed-syntax lang="javascript"}}
   //Using font awesome icons (not included)
 
   myTableModel: {
@@ -68,7 +68,7 @@
     ]
   };
 
-    </pre>
+    {{/themed-syntax}}
   </p>
 </section>
 
@@ -78,11 +78,11 @@
   {{sf-table table=model.big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
   <p>
     <h4>Template</h4>
-    <pre>
+    {{#themed-syntax lang="htmlbars"}}
   &#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
-    </pre>
+    {{/themed-syntax}}
     <p>
-    The <em>edit</em> and <em>cancel</em> actions will return the following hash:
+    The <strong>edit</strong> and <strong>cancel</strong> actions will return the following hash:
     <ul>
       <li>row   - parent relationship</li>
       <li>key   - property name</li>
@@ -91,7 +91,7 @@
     </p>
 
     <h4>Controller</h4>
-    <pre>
+    {{#themed-syntax lang="javascript"}}
   actions: {
 
     myEditAction(hash) {
@@ -102,7 +102,7 @@
       //=> { row: 'Class', key: 'String', value: 'String' }
     }
   }
-    </pre>
+    {{/themed-syntax}}
   </p>
 </section>
 
