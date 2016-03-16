@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import _ from 'lodash/lodash';
+import { primitiveKeys } from '../utils';
 
 const {
   computed,
@@ -11,8 +12,6 @@ const {
   alias,
   bool
 } = computed;
-
-const { keys } = Object;
 
 /**
   Sortable Filterable Table Component
@@ -72,7 +71,7 @@ export default Ember.Component.extend({
    @public
   */
   headers: computed('sortedRows', function() {
-    return Ember.A(keys(this.get('sortedRows.firstObject')));
+    return Ember.A(primitiveKeys(this.get('sortedRows.firstObject')));
   }),
 
   /**

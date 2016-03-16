@@ -107,6 +107,19 @@ let privateLabel = {
   ]
 };
 
+let notAllPrimitive = {
+  rows: [
+    {
+      'hello': 'world',
+      'yo': true,
+      'mtvraps': 1,
+      toString: function() {
+        return 'string';
+      }
+    }
+  ]
+};
+
 moduleForComponent('sort-filter-table', 'Integration | Component | sort filter table', {
   integration: true,
   needs: ['component:each-keys'],
@@ -251,6 +264,11 @@ test('it sends up the params up to the controller', function(assert) {
     assert.ok(!!cancelValues, 'The controller\'s cancel action received parameters');
   });
 
+});
+
+test('it only allows primitive types in its row headers', function(assert) {
+  component.set('table', notAllPrimitive);
+  assert.equal(component.get('headers.length'), 3, 'Keys pointing to non primitive types were not included');
 });
 
 
