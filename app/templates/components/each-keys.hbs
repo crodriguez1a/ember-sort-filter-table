@@ -1,0 +1,5 @@
+{{#each items as |item|}}
+  {{#unless item.private}}
+    {{yield item.key item.value}}
+  {{/unless}}
+{{/each}}
