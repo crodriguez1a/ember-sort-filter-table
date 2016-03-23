@@ -1,14 +1,10 @@
 import Ember from 'ember';
+import layout from '../templates/components/each-keys';
+import computed from 'ember-computed-decorators';
 
 /**
   Credit: rwjblue
 */
-
-const {
-  Component,
-  computed,
-  get
-} = Ember;
 
 const { keys } = Object;
 
@@ -18,13 +14,19 @@ const { keys } = Object;
   @class EachKeys
   @extends Ember.Component
 */
-export default Component.extend({
-  tagName: 'tr',
-  items: computed('object', function() {
-    var object = get(this, 'object');
-    var keysArr = keys(object);
-    return keysArr.map(function(key) {
-      return { key: key, value: object[key], private: key[0] === '_'};
-    });
-  })
+export default Ember.Component.extend({
+  layout,
+  tagName: '',
+  @computed('object')
+  items(object) {
+    if (object) {
+      let keysArr = keys(object);
+      return keysArr.map((key) => {
+        return {
+          key,
+          value: object[key]
+        };
+      });
+    }
+  }
 });

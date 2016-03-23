@@ -6,13 +6,19 @@ moduleForComponent('sf-table', 'Integration | Component | sf table', {
 });
 
 test('it renders', function(assert) {
-
   // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });" + EOL + EOL +
+  // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{sf-table}}`);
 
-  assert.ok(this.$().text().indexOf('Empty'));
+  assert.equal(this.$('.no-data-provided').length, 1);
 
-  //no block test since this only serves as an alias for nomanclature
+  // Template block usage:
+  this.render(hbs`
+    {{#sf-table}}
+      template block text
+    {{/sf-table}}
+  `);
+
+  assert.equal(this.$().text().trim(), 'template block text');
 });

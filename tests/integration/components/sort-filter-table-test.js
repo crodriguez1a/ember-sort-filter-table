@@ -1,42 +1,46 @@
 import Ember from 'ember';
-import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
 
-//since run-loop is disabled, wrap any code with asynchronous side-effects in a run
-const { run } = Ember;
+// since run-loop is disabled, wrap any code with asynchronous side-effects in a run
+const {
+  run,
+  set
+} = Ember;
 
-let component;
 let sample = {
-    rows: [ {
-      'last_name' : 'Billups',
-      'first_name' : 'Chauncey',
-      'display_name' : 'Chauncey Billups',
-      'birthdate' : '1976-09-25',
-      'age' : 37,
-      'birthplace' : 'Denver, Colorado, USA',
-      'height_in' : 75,
-      'height_cm' : 190.5,
-      'height_m' : 1.9,
-      'height_formatted' : '6\'3\'',
-      'weight_lb' : 202,
-      'weight_kg' : 91.8,
-      'position' : 'PG',
-      'uniform_number' : 1
-    }, {
-      'last_name' : 'Bynum',
-      'first_name' : 'William',
-      'display_name' : 'Will Bynum',
-      'birthdate' : '1983-01-04',
-      'age' : 30,
-      'birthplace' : 'Chicago, Illinois, USA',
-      'height_in' : 72,
-      'height_cm' : 182.9,
-      'height_m' : 1.8,
-      'height_formatted' : '6\'0\'',
-      'weight_lb' : 185,
-      'weight_kg' : 84.1,
-      'position' : 'PG',
-      'uniform_number' : 12
+  rows: [
+    {
+      'last_name': 'Billups',
+      'first_name': 'Chauncey',
+      'display_name': 'Chauncey Billups',
+      'birthdate': '1976-09-25',
+      'age': 37,
+      'birthplace': 'Denver, Colorado, USA',
+      'height_in': 75,
+      'height_cm': 190.5,
+      'height_m': 1.9,
+      'height_formatted': '6\'3\'',
+      'weight_lb': 202,
+      'weight_kg': 91.8,
+      'position': 'PG',
+      'uniform_number': 1
+    },
+    {
+      'last_name': 'Bynum',
+      'first_name': 'William',
+      'display_name': 'Will Bynum',
+      'birthdate': '1983-01-04',
+      'age': 30,
+      'birthplace': 'Chicago, Illinois, USA',
+      'height_in': 72,
+      'height_cm': 182.9,
+      'height_m': 1.8,
+      'height_formatted': '6\'0\'',
+      'weight_lb': 185,
+      'weight_kg': 84.1,
+      'position': 'PG',
+      'uniform_number': 12
     }
   ]
 };
@@ -44,7 +48,7 @@ let sample = {
 let hyphen = {
   rows: [
     {
-      'hyphen-ated' : true
+      'hyphen-ated': true
     }
   ]
 };
@@ -52,7 +56,7 @@ let hyphen = {
 let underscore = {
   rows: [
     {
-      'under_scored_underscored' : true
+      'under_scored_underscored': true
     }
   ]
 };
@@ -60,10 +64,10 @@ let underscore = {
 let alphaSort = {
   rows: [
     {
-      'name': 'alpha'
+      name: 'alpha'
     },
     {
-      'name': 'zeta'
+      name: 'zeta'
     }
   ]
 };
@@ -71,10 +75,10 @@ let alphaSort = {
 let numericSort = {
   rows: [
     {
-      'number': 0
+      number: 0
     },
     {
-      'number': 1
+      number: 1
     }
   ]
 };
@@ -82,8 +86,8 @@ let numericSort = {
 let camelCase = {
   rows: [
     {
-      'camelCase': true,
-      'caseCamel': true
+      camelCase: true,
+      caseCamel: true
     }
   ]
 };
@@ -96,13 +100,10 @@ let emberObject = Ember.Object.create({
   ])
 });
 
-let partialFilter = 'Chau';
-let multiFilter = 'Chauncey Billups';
-
 let privateLabel = {
   rows: [
     {
-      '_private': 'foo'
+      _private: 'foo'
     }
   ]
 };
@@ -110,10 +111,10 @@ let privateLabel = {
 let notAllPrimitive = {
   rows: [
     {
-      'hello': 'world',
-      'yo': true,
-      'mtvraps': 1,
-      toString: function() {
+      hello: 'world',
+      yo: true,
+      mtvraps: 1,
+      toString() {
         return 'string';
       }
     }
@@ -121,57 +122,69 @@ let notAllPrimitive = {
 };
 
 moduleForComponent('sort-filter-table', 'Integration | Component | sort filter table', {
-  integration: true,
-  needs: ['component:each-keys'],
-  beforeEach() {
-    component = this.subject();
-  }
+  integration: true
 });
 
 test('it renders', function(assert) {
-  assert.equal(component._state, 'preRender', 'It pre-rendered');
+  // Set any properties with set(this, 'myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  assert.equal(this.$('.no-data-provided').length, 1);
+
+  // Template block usage:
   this.render(hbs`
-    {{component 'sort-filter-table' table=sample}}
+    {{#sort-filter-table}}
+      template block text
+    {{/sort-filter-table}}
   `);
-  assert.equal(component._state, 'inDOM', 'It is in the DOM');
+
+  assert.equal(this.$().text().trim(), 'template block text');
 });
 
 test('it assembles header labels', function(assert) {
-  component.set('table', sample);
-  assert.equal(component.get('labels').length, this.$().find('.sort-labels').length, 'Correct number of labels are in DOM and in sync with model');
+  set(this, 'table', sample);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  assert.equal(this.$('.table-header').length, 14, 'Correct number of labels are in DOM and in sync with model');
 });
 
-test('it exclude headers marked as private with a leading underscore', function(assert) {
-  component.set('table', privateLabel);
-  assert.equal(component.get('labels.length'), 0, 'When an object key has a leading underscore (private), exclude from DOM');
+test('it excludes headers marked as private with a leading underscore', function(assert) {
+  set(this, 'table', privateLabel);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  assert.equal(this.$('.table-header').length, 0, 'When an object key has a leading underscore (private), exclude from DOM');
 });
 
 test('it handles headers with underscores, hyphens, spaces, or camel case', function(assert) {
-  //hyphenated keys
-  component.set('table', hyphen);
+  // hyphenated keys
+  set(this, 'table', hyphen);
+  this.render(hbs`{{sort-filter-table table=table}}`);
 
-  let labelName = component.get('labels').getEach('name')[0];
-  assert.equal((/-/g).test(labelName), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
+  assert.equal((/-/g).test(this.$('.table-header').text().trim()), false, 'When object keys use hyphens, labels are displayed DOM without hyphens');
 
-  //keys with underscores
+  // keys with underscores
   run(() => {
-    component.set('table', underscore);
-    let labelName = component.get('labels').getEach('name')[0];
-    assert.equal((/_/g).test(labelName), false, 'When object keys use underscores, labels are displayed DOM without underscores');
+    set(this, 'table', underscore);
+    this.render(hbs`{{sort-filter-table table=table}}`);
 
+    assert.equal((/_/g).test(this.$('.table-header').text().trim()), false, 'When object keys use underscores, labels are displayed DOM without underscores');
   });
 
-  //keys with camel case
+  // keys with camel case
   run(() => {
-    component.set('table', camelCase);
-    let labelName = component.get('labels').getEach('name')[0];
-    assert.equal((/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/).test(labelName), false, 'When object keys use camel case, labels are displayed DOM with no camel casing');
+    set(this, 'table', camelCase);
+    this.render(hbs`{{sort-filter-table table=table}}`);
+
+    assert.equal((/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/).test(this.$('.table-header').text().trim()), false, 'When object keys use camel case, labels are displayed DOM with no camel casing');
   });
 
 });
 
 test('it sorts alphabetically', function(assert) {
-  component.set('table', alphaSort);
+  set(this, 'table', alphaSort);
+  this.render(hbs`{{sort-filter-table table=table}}`);
 
   let $sortLabel = this.$('.sort-labels');
 
@@ -184,7 +197,8 @@ test('it sorts alphabetically', function(assert) {
 });
 
 test('it sorts numerically', function(assert) {
-  component.set('table', numericSort);
+  set(this, 'table', numericSort);
+  this.render(hbs`{{sort-filter-table table=table}}`);
 
   let $sortLabel = this.$('.sort-labels');
 
@@ -195,35 +209,28 @@ test('it sorts numerically', function(assert) {
   assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '0', 'Table was sorted again in the reverse');
 });
 
-test('it filters appropriately', function(assert) {
-  component.setProperties({
-    'table'  : sample,
-    'filter' : partialFilter
-  });
-  assert.equal(this.$().find('tbody tr').length, 1, 'When a filter is applied, the number of table rows in the DOM reduces accordingly');
+test('it filters appropriately with multiple filter tems', function(assert) {
+  set(this, 'table', sample);
+  this.render(hbs`{{sort-filter-table filter="Chauncey Billups" table=table}}`);
 
-  run(() => {
-    component.setProperties({
-      'table'  : sample,
-      'filter' : multiFilter
-    });
-    assert.ok(this.$().find('tbody tr').length > 0, 'When a filter using two query terms (eg., John Doe) is applied, a match is found');
-  });
-
+  assert.ok(this.$().find('tbody tr').length > 0, 'When a filter using two query terms (eg., John Doe) is applied, a match is found');
 });
 
 test('it handles both POJOs and Ember Objects in the model', function(assert) {
-  component.set('table', emberObject);
+  set(this, 'table', emberObject);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
   assert.equal(this.$().find('tbody tr').length, 1, 'When an Ember Object is passed, DOM is populated accordingly');
 });
 
 test('it toggles to edit mode', function(assert) {
-  component.setProperties({
-    'table'    : sample,
-    'editable' : true,
-    'edit'     : 'myEditAction',
-    'cancel'   : 'myCancelAction'
+  this.setProperties({
+    table: sample,
+    editable: true,
+    edit: 'myEditAction',
+    cancel: 'myCancelAction'
   });
+  this.render(hbs`{{sort-filter-table editable=true edit=edit cancel=cancel table=table}}`);
 
   let $editValue = this.$('.edit-value:first');
   $editValue.click();
@@ -238,7 +245,7 @@ test('it sends up the params up to the controller', function(assert) {
   let editValues;
   let cancelValues;
 
-  //Simulate controller
+  // Simulate controller
   let myEditAction = (params) => {
     editValues = params;
   };
@@ -247,12 +254,13 @@ test('it sends up the params up to the controller', function(assert) {
     cancelValues = params;
   };
 
-  component.setProperties({
-    'table'    : sample,
-    'editable' : true,
-    'edit'     : myEditAction,
-    'cancel'   : myCancelAction
+  this.setProperties({
+    table: sample,
+    editable: true,
+    edit: myEditAction,
+    cancel: myCancelAction
   });
+  this.render(hbs`{{sort-filter-table editable=true edit=edit cancel=cancel table=table}}`);
 
   this.$('.edit-value:first').click();
   this.$('.send-edit:first').click();
@@ -267,9 +275,8 @@ test('it sends up the params up to the controller', function(assert) {
 });
 
 test('it only allows primitive types in its row headers', function(assert) {
-  component.set('table', notAllPrimitive);
-  assert.equal(component.get('headers.length'), 3, 'Keys pointing to non primitive types were not included');
+  set(this, 'table', notAllPrimitive);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  assert.equal(this.$('.table-header').length, 3, 'Keys pointing to non primitive types were not included');
 });
-
-
-//TODO: test when model changes asynchronously from service

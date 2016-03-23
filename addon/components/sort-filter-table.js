@@ -1,17 +1,16 @@
 import Ember from 'ember';
+import layout from '../templates/components/sort-filter-table';
 import _ from 'lodash/lodash';
-import { primitiveKeys } from '../utils';
+import computed, { sort, alias } from 'ember-computed-decorators';
+import { isPrivateKey, primitiveKeys } from '../utils';
 
 const {
-  computed,
-  observer
+  observer,
+  get,
+  set
 } = Ember;
 
-const {
-  sort,
-  alias,
-  bool
-} = computed;
+const { keys } = Object;
 
 /**
   Sortable Filterable Table Component
@@ -20,8 +19,9 @@ const {
   @extends Ember.Component
 */
 export default Ember.Component.extend({
-  hasBlock: bool('template').readOnly(),
-
+  layout,
+  tagName: 'table',
+  classNames: ['sort-filter-table table'],
   /**
    Config: Signal if filter input field should be included
 
@@ -32,50 +32,61 @@ export default Ember.Component.extend({
   filterable: true,
 
   /**
-    Map raw data in to Ember A and Ember Objects
+    A placeholder to display in the filter input field
 
-    @property _rows
-    @returns Array
-    @private
-  */
-  _rows: computed('table.rows', function() {
-    let rows = this.get('table.rows');
-    return Ember.A(rows.map((row) => {
-      return Ember.Object.create(row);
-    }));
-  }),
-
-  /**
-    Array of properties to determine sort order
-
-    @property _sortOrder
-    @returns Array
-    @private
-  */
-  _sortOrder: Ember.A([]),
-
-  /**
-    Rows sorted by specified sort order
-
-    @property sortedRows
-    @returns Array
+    @property filterPlaceholder
     @public
+    @returns String
   */
-  sortedRows: sort('_rows', '_sortOrder'),
+  filterPlaceholder: "filter",
 
   /**
-   Extract column headers from keys
+    Only display rows with primitive values and public keys
 
-   @property headers
+    @property rows
+    @private
+    @returns Array
+  */
+  @computed('table.rows')
+  rows(rows) {
+    return Ember.A(rows);
+  },
+
+  /**
+   Extract column headings from keys
+
+   @property headings
    @returns Array
    @public
   */
-  headers: computed('sortedRows', function() {
-    return Ember.A(primitiveKeys(this.get('sortedRows.firstObject')));
-  }),
+  @computed('rows')
+  headings(rows) {
+    return Ember.A(primitiveKeys(rows[0]));
+  },
 
   /**
-    Store separator for headers
+    Assemble pretty labels from column headings/keys
+
+    @property labels
+    @returns Array
+    @public
+
+  */
+  @computed('headings')
+  labels(headings) {
+    let rows = get(this, 'rows');
+    return Ember.A(headings.map((item) => {
+      return Ember.Object.create({
+        _key: item,
+        name: this._handleSeparators(item),
+        _sortClass: 'asc',
+        _isPrivate: isPrivateKey(item)
+      });
+    }));
+  },
+
+  /**
+    Store separator for headings
 
     @property _separator
     @returns String
@@ -84,7 +95,7 @@ export default Ember.Component.extend({
   _separator: null,
 
   /**
-    Replaces hyphens or underscores with spaces (used to prettify headers)
+    Replaces hyphens or underscores with spaces (used to prettify headings)
 
     @method _handleSeparators
     @private
@@ -95,50 +106,45 @@ export default Ember.Component.extend({
     separator = camelCase || separator;
 
     if (separator && separator.length) {
-      this.set('_separator', separator[0]);
-      return str.replace(new RegExp(separator[0]), ' ');
+      set(this, '_separator', separator[0]);
+      return str.replace(new RegExp(separator[0], 'g'), ' ');
     } else {
       return str;
     }
   },
 
-  _stripPrivate(arr) {
-    arr.filter((item, index) => {
-      if ((/_/).test(arr[index][0])) {
-        arr.splice(index, 1);
-      }
-    });
-    return arr;
-  },
-
   /**
-    Assemble pretty labels from column headers/keys
+    Label to determine sort order
 
-    @property labels
-    @returns Array
-    @public
-
+    @property sortLabel
+    @returns String
+    @private
   */
-  labels: computed('headers', function() {
-    let headers = this._stripPrivate(this.get('headers'));
-
-    return Ember.A(headers.map((item) => {
-      return Ember.Object.create({
-        _key: item,
-        name: this._handleSeparators(item),
-        sort: 'null'
-      });
-    }));
-  }),
+  @computed('headings')
+  sortLabel(headings) {
+    return headings[0];
+  },
 
   /**
     Signal wether current sort param is asc or desc
 
-    @property _ascending
+    @property isAscending
     @type Bool
     @private
   */
-  _ascending: true,
+  isAscending: true,
+
+  /**
+    Compute when sort should reverse order
+
+    @property _direction
+    @private
+    @returns String
+  */
+  @computed('isAscending')
+  _direction(isAscending) {
+    return isAscending ? '' : ':desc';
+  },
 
   /**
     Calculated total number of columns (colspan)
@@ -147,7 +153,7 @@ export default Ember.Component.extend({
     @returns Number
     @public
   */
-  totalColumns: alias('labels.length'),
+  @alias('labels.length') totalColumns,
 
   /**
     Filter by search param from input
@@ -156,51 +162,49 @@ export default Ember.Component.extend({
     @private
   */
   _applyFilter: observer('filter', function() {
-    let rows = this.get('sortedRows');
+    let rows = get(this, 'rows');
 
     //case insensitive
-    let filterQuery = (this.get('filter')).toLowerCase();
+    let filterQuery = get(this, 'filter');
 
+    filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
     rows.filter((row) => {
       let values = _.values(row);
       let filterExp = new RegExp(filterQuery);
-      return row.set('_filtered', !(filterExp).test((values.join(',')).toLowerCase()));
+      return set(row, '_filtered', !(filterExp).test((values.join(',')).toLowerCase()));
     });
 
   }),
 
   actions: {
+
     /**
-      Toggle sort by property asc/desc
+      Apply label as sort
 
-      @method sortBy
+      @method sortByLabel
+      @private
     */
-    sortBy(label) {
-      let header = label.get('name').replace(/ /g, this.get('_separator'));
-      let labels = this.get('labels');
-
-      this.toggleProperty('_ascending');
-      let direction = this.get('_ascending') ? 'asc' : 'desc';
-
-      labels.setEach('sort', null);
-      label.set('sort', direction);
-
-      this.set('_sortOrder', [ header + ':' + direction ]);
+    sortByLabel(label) {
+      let sortName = label.get('name').replace(/ /g, get(this, '_separator'));
+      this.toggleProperty('isAscending');
+      set(label, '_sortClass', get(this, 'isAscending') ? 'asc' : 'desc');
+      set(this, 'sortLabel', sortName);
     },
 
     /**
       Send values up to actions
 
       @method sendEditAction
+      @private
     */
     sendEditAction(row, key, value, action) {
-      if (this.get(action)) {
+      set(row, '_editingRow', null);
+      if (get(this, action)) {
         this.sendAction(action, {
-          'row' : row,
-          'key' : key,
-          'value' : value
+          row,
+          key,
+          value
         });
-        row.toggleProperty('_editingRow');
       }
     },
 
@@ -208,11 +212,12 @@ export default Ember.Component.extend({
       Display input field for editing
 
       @method
+      @private
     */
     editValue(row, key) {
-      let rows = this.get('_rows');
+      let rows = get(this, 'rows');
       rows.setEach('_editingRow', null);
-      row.set('_editingRow', key);
+      set(row, '_editingRow', key);
     },
   }
 });

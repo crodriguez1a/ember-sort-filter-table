@@ -1,3 +1,6 @@
 {
-  "ignore_dirs": ["tmp"]
+  "ignore_dirs": [
+    "tmp",
+    "dist"
+  ]
 }

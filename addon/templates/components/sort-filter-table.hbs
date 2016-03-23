@@ -1,0 +1,74 @@
+{{#if hasBlock}}
+  {{!Block syntax}}
+  {{yield}}
+{{else}}
+  {{#if table}}
+  <thead>
+    {{!Labels}}
+    <tr>
+      {{#each (filter-by "_isPrivate" false labels) as |label|}}
+        <th class="table-header {{label._sortClass}} {{label._key}}">
+          <a href="#" class="sort-labels {{label._sortClass}}" {{action "sortByLabel" label}}><span>{{{label.name}}}</span></a>
+        </th>
+      {{/each}}
+    </tr>
+
+    {{!Filterable}}
+    {{#if filterable}}
+      <tr class="filter">
+        <th colspan="{{totalColumns}}">
+          {{input class="input" value=filter placeholder=filterPlaceholder}}
+        </th>
+      </tr>
+    {{/if}}
+  </thead>
+  <tbody>
+    {{!Sort by label }}
+    {{#each (sort-by (concat sortLabel _direction) rows) as |row|}}
+      {{#unless row._filtered}}
+        <tr>
+          {{#each-keys object=row as |key value|}}
+            {{#unless (is-private-key key)}}
+              {{#if (is-primitive value)}}
+                <td>
+                  {{#if editable}}
+                    {{!Can edit}}
+                    {{#if (eq row._editingRow key)}}
+                      <ul class="edit-field">
+                        <li class="edit-input">
+                          {{input class="input" placeholder=value value=value}}
+                        </li>
+                        <li class="edit-buttons">
+                          <button class="button cancel cancel-edit" {{action "sendEditAction" row key value "cancel"}}>Cancel</button>
+                          <button class="button edit send-edit" {{action "sendEditAction" row key value "edit"}}>Edit</button>
+                        </li>
+                      </ul>
+                    {{else}}
+                      <a href="#" class="edit-value" {{action "editValue" row key}}>{{{value}}}</a>
+                    {{/if}}
+                  {{else}}
+                    {{!Cannot edit}}
+                    {{{value}}}
+                  {{/if}}
+                </td>
+              {{/if}}
+            {{/unless}}
+          {{/each-keys}}
+        </tr>
+      {{/unless}}
+    {{/each}}
+  </tbody>
+  {{else}}
+    {{!No model was provided}}
+    <thead>
+      <tr>
+        <th class="no-data-provided">Empty</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>n/a</td>
+      </tr>
+    </tbody>
+  {{/if}}
+{{/if}}

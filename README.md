@@ -15,19 +15,19 @@ Simply pass an array of objects as the **table** parameter to the component. Use
 		*/
 		let model = {
 		  rows: [
-		    { 
-		      Tables: 'zebra stripes', 
-		      Are: 'are neat', 
-		      Cool: '$1' 
-		     } 
+		    {
+		      Tables: 'zebra stripes',
+		      Are: 'are neat',
+		      Cool: '$1'
+		     }
 		   ]
 		 };		 
-		
+
 		...
-		
+
 		{{! some-template.hbs }}
 		{{component "sort-filter-table" table=model}}
-		
+
 The addon will assemble the table headers from the object keys and display a table like this:
 
 | [Tables](#)        | [Are](#)           | [Cool](#) |
@@ -38,19 +38,19 @@ If your model has properties that should not be displayed in the table, use an u
 
 		let model = {
 		  rows:[
-		    { 
+		    {
 		      name: 'Carlos Rodriguez',
 		      github_id: 'crodriguez1a',
 		      _writesCode: true
 		    }
 		  ]
 		};
-		
+
 The model above would display like this:
-		
+
 | [name](#)        | [github id](#)           |
-| ------------- |:-------------:| 
-| Carlos Rodriguez | crodriguez1a      | 
+| ------------- |:-------------:|
+| Carlos Rodriguez | crodriguez1a      |
 
 ## Contribute
 Collaboration is welcome and greatly appreciated. To collaborate on this project, follow the instructions that follow.

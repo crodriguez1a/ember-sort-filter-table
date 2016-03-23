@@ -1,116 +1,227 @@
-<h2 id="title">
-  <i class="fa fa-table"></i> ember-sort-filter-table <span class="version">v0.1.9</span>
-</h2>
-<h3>
-  <a class="subtitle" href="https://github.com/crodriguez1a/ember-sort-filter-table/fork" target="_blank"><i class="fa fa-code-fork"></i> Fork on Github</a>
-</h3>
-<hr>
-<section>
-  <p class="version-notes">
-    <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
-     <ul>
+<main>
+  {{#bulma-hero isPrimary=true isBold=true}}
+    {{#bulma-hero-content}}
+      <h1 class="title">
+        <i class="fa fa-table"></i> Ember Sort Filter Table
+      </h1>
+    {{/bulma-hero-content}}
+    {{#bulma-hero-footer}}
+      {{#bulma-tabs isRight=true isBoxed=true}}
+        <ul>
+          <li class="is-active">
+            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>Source</a>
+          </li>
+          <li>
+            <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i> Email</a>
+          </li>
+        </ul>
+      {{/bulma-tabs}}
+    {{/bulma-hero-footer}}
+  {{/bulma-hero}}
+  {{#bulma-section}}
+    <div class="content version-notes">
+      <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
+      <ul>
        <li>
-         0.1.9
+         <strong>0.2.0</strong>
+         <ul>
+           <li>Ember 2.x optimization</li>
+           <li>Template update to remove outer div. Base of component is now a <code>table</code> tag.</li>
+           <li>Addition of some semantic class names</li>
+           <li>Prevent non-primitives in model from rendering (e.g., functions, objects)</li>
+           <li>Fix issue <a href="https://github.com/crodriguez1a/ember-sort-filter-table/issues/16" target="_blank">#16</a></li>
+           <li>Fix issue <a href="https://github.com/crodriguez1a/ember-sort-filter-table/issues/17" target="_blank">#17</a></li>
+         </ul>
+       </li>
+       <li>
+         <strong>0.1.9</strong>
          <ul>
            <li>Fix issue <a href="https://github.com/crodriguez1a/ember-sort-filter-table/issues/15" target="_blank">#15</a></li>
          </ul>
        </li>
        <li>
-         0.1.8
+         <strong>0.1.8</strong>
          <ul>
            <li>HTML markup support in model</li>
            <li>Component short name alias <code>sf-table</code></li>
          </ul>
        </li>
        <li>
-         0.1.7
+         <strong>0.1.7</strong>
          <ul>
            <li>Camel case row header support</li>
            <li>Private keys bugfix</li>
          </ul>
        </li>
-     </ul>
-  </p>
+      </ul>
+    </div>
+  {{/bulma-section}}
 
-  <hr>
-  <h3>Basic Example</h3>
-  {{sf-table table=model.small}}
+  {{#bulma-section}}
+    <div class="content">
+      <h2 class="title">Installation</h2>
+      {{#themed-syntax lang="bash" theme="dark"}}
+ember install ember-sort-filter-table
+      {{/themed-syntax}}
+    </div>
+  {{/bulma-section}}
 
-  <p>
-    <h4>Template</h4>
-    {{#themed-syntax lang="handlebars"}}
-  &#123;&#123;sf-table table=myTableModel&#125;&#125;
-    {{/themed-syntax}}
-  </p>
+  {{#bulma-section}}
+    <div class="content">
+      <h2 class="title">Usage</h2>
 
-  <p>
-    <h4>Route</h4>
-    {{#themed-syntax lang="javascript"}}
-  //Using font awesome icons (not included)
+      <p>
+       {{#themed-syntax lang="handlebars" theme="dark"}}
+&#123;&#123;sf-table table=myTableModel&#125;&#125;
+        {{/themed-syntax}}
+      </p>
 
-  myTableModel: {
-    rows: [
-      {
-        'Browser' : '&lt;i class="fa fa-chrome"&gt;&lt;/i&gt; Chrome',
-        'November': '48.15%',
-        'December': '46.22%',
-        'change'  : '-1.93%',
-        'relative': '-4.00%'
-      },
-      {
-        'Browser' : '&lt;i class="fa fa-firefox"&gt;&lt;/i&gt; Firefox',
-        'November': '16.76%',
-        'December': '16.34%',
-        'change'  : '-0.42%',
-        'relative': '-2.50%'
-      },
-      {
-        'Browser' : '&lt;i class="fa fa-safari"&gt;&lt;/i&gt; Safari',
-        'November': '4.45%',
-        'December': '4.24%',
-        'change'  : '-0.21%',
-        'relative': '-4.70%'
-      }
-    ]
-  };
+      {{bulma-table table=small isBordered=true isStriped=true}}
 
-    {{/themed-syntax}}
-  </p>
-</section>
-
-<hr>
-<section>
-  <h3>Editable Example</h3>
-  {{sf-table table=model.big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
-  <p>
-    <h4>Template</h4>
-    {{#themed-syntax lang="htmlbars"}}
-  &#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
-    {{/themed-syntax}}
-    <p>
-    The <strong>edit</strong> and <strong>cancel</strong> actions will return the following hash:
-    <ul>
-      <li>row   - parent relationship</li>
-      <li>key   - property name</li>
-      <li>value - edited value</li>
-    </ul>
-    </p>
-
-    <h4>Controller</h4>
-    {{#themed-syntax lang="javascript"}}
-  actions: {
-
-    myEditAction(hash) {
-      //=> { row: 'Class', key: 'String', value: 'String' }
+      <p>
+        {{#themed-syntax lang="javascript" theme="dark"}}
+/* Using font awesome icons (not included) */
+myTableModel: {
+  rows: [
+    {
+      'Browser': '&lt;i class="fa fa-chrome"&gt;&lt;/i&gt; Chrome',
+      'November': '48.15%',
+      'December': '46.22%',
+      'change': '-1.93%',
+      'relative': '-4.00%'
     },
-
-    myCancelAction(hash) {
-      //=> { row: 'Class', key: 'String', value: 'String' }
+    {
+      'Browser': '&lt;i class="fa fa-firefox"&gt;&lt;/i&gt; Firefox',
+      'November': '16.76%',
+      'December': '16.34%',
+      'change': '-0.42%',
+      'relative': '-2.50%'
+    },
+    {
+      'Browser': '&lt;i class="fa fa-safari"&gt;&lt;/i&gt; Safari',
+      'November': '4.45%',
+      'December': '4.24%',
+      'change': '-0.21%',
+      'relative': '-4.70%'
     }
+  ]
+};
+          {{/themed-syntax}}
+        </p>
+
+        <p>
+          The addon will assemble the table headers from the object keys. If your model has properties that should not be displayed in the table, <strong>use an underscore to designate that property as private</strong>.
+        </p>
+
+        <p>
+          {{#themed-syntax lang="javascript" theme="dark"}}
+let devs = {
+  rows:[
+    {
+      name: 'Carlos Rodriguez',
+      github_ID: 'crodriguez1a',
+      _tags: 'developer javascript ember ios'
+    },
+    {
+      name: 'Alex DiLiberto',
+      github_ID: 'alexdiliberto',
+      _tags: 'developer javascript ember android'
+    }
+  ]
+};
+          {{/themed-syntax}}
+        </p>
+
+        <p>
+         The model above would display as below. Although the <code>_tags</code> key is designated private and does not display, its value is still considered.
+        </p>
+
+        {{bulma-table isBordered=true table=devs filterPlaceholder="Type android or ios"}}
+      </div>
+  {{/bulma-section}}
+
+  {{#bulma-section}}
+    <div class="content">
+      <h2 class="title">Configuration</h2>
+      <ul class="config-list">
+        <li>
+          <strong>filterable</strong> <em>Bool</em> - Signal if filter input should display. Default is <code>true</code>
+        </li>
+        <li>
+          <strong>filterPlaceholder</strong> <em>String</em> - Placeholder text for filter input. Default is <code>`Filter`</code>
+        </li>
+        <li>
+          <strong>editable</strong> <em>Bool</em> - Signal if editing dialogue should display. Default is <code>false</code>
+        </li>
+      </ul>
+    </div>
+  {{/bulma-section}}
+
+  {{#bulma-section}}
+    <div class="content">
+      <h3>Editable Example</h3>
+      {{bulma-table isStriped=true isBordered=true table=big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
+
+      {{#themed-syntax lang="htmlbars" theme="dark"}}
+&#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
+      {{/themed-syntax}}
+
+      <br>
+      <p class="control">
+        The <strong>edit</strong> and <strong>cancel</strong> actions will return the following hash:
+        <ul>
+          <li>row   - parent relationship</li>
+          <li>key   - property name</li>
+          <li>value - edited value</li>
+        </ul>
+      </p>
+
+      {{#themed-syntax lang="javascript" theme="dark"}}
+// controller.js
+actions: {
+
+  myEditAction(hash) {
+    //=> { row: 'Class', key: 'String', value: 'String' }
+  },
+
+  myCancelAction(hash) {
+    //=> { row: 'Class', key: 'String', value: 'String' }
   }
-    {{/themed-syntax}}
-  </p>
-</section>
+}
+      {{/themed-syntax}}
 
+    </div>
+  {{/bulma-section}}
 
-{{outlet}}
+  {{#bulma-section}}
+    <div class="content">
+      <h3>Enhancements</h3>
+      <ul>
+        <li>Ember Data Support</li>
+        <li>Block Syntax</li>
+      </ul>
+
+      <p>
+        <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i> Contribute</a>
+      </p>
+    </div>
+  {{/bulma-section}}
+
+  {{#bulma-footer}}
+    <div class="content">
+      <p>
+        <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><strong>Ember Sort Filter Table</strong></a> is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+      </p>
+    </div>
+    {{#bulma-tabs isRight=true}}
+      <ul>
+        <li>
+          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>Source</a>
+        </li>
+        <li>
+          <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i> Email</a>
+        </li>
+      </ul>
+    {{/bulma-tabs}}
+  {{/bulma-footer}}
+</main>

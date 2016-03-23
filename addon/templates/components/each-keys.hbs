@@ -1,0 +1,7 @@
+{{#if items}}
+  {{#each items as |item|}}
+    {{yield item.key item.value}}
+  {{/each}}
+{{else}}
+  {{yield}}
+{{/if}}
