@@ -8,7 +8,7 @@ module.exports = {
 
   afterInstall: function(options) {
     return this.addPackagesToProject([
-      { name: 'ember-lodash', target: '0.0.5' }
+      { name: 'ember-lodash', target: '0.0.6' }
     ]);
   }
 };
