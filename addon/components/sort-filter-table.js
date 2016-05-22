@@ -5,7 +5,6 @@ import computed, { sort, alias } from 'ember-computed-decorators';
 import { isPrivateKey, primitiveKeys } from '../utils';
 
 const {
-  observer,
   get,
   set
 } = Ember;
@@ -26,7 +25,7 @@ export default Ember.Component.extend({
    Config: Signal if filter input field should be included
 
    @property filterable
-   @returns Bool
+   @type Bool
    @public
   */
   filterable: true,
@@ -36,7 +35,7 @@ export default Ember.Component.extend({
 
     @property filterPlaceholder
     @public
-    @returns String
+    @type String
   */
   filterPlaceholder: "filter",
 
@@ -45,18 +44,26 @@ export default Ember.Component.extend({
 
     @property rows
     @private
-    @returns Array
+    @type Array
   */
-  @computed('table.rows')
-  rows(rows) {
-    return Ember.A(rows);
+  @computed('table.rows', 'filter')
+  rows(rows, filterQuery) {
+    //case insensitive
+    filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
+
+    return Ember.A(rows.filter((row) => {
+      let values = _.values(row);
+      let filterExp = new RegExp(filterQuery);
+      set(row, '_filtered', !(filterExp).test((values.join(',')).toLowerCase()));
+      return row;
+    }));
   },
 
   /**
    Extract column headings from keys
 
    @property headings
-   @returns Array
+   @type Array
    @public
   */
   @computed('rows')
@@ -68,7 +75,7 @@ export default Ember.Component.extend({
     Assemble pretty labels from column headings/keys
 
     @property labels
-    @returns Array
+    @type Array
     @public
 
   */
@@ -89,7 +96,7 @@ export default Ember.Component.extend({
     Store separator for headings
 
     @property _separator
-    @returns String
+    @type String
     @private
   */
   _separator: null,
@@ -117,7 +124,7 @@ export default Ember.Component.extend({
     Label to determine sort order
 
     @property sortLabel
-    @returns String
+    @type String
     @private
   */
   @computed('headings')
@@ -139,7 +146,7 @@ export default Ember.Component.extend({
 
     @property _direction
     @private
-    @returns String
+    @type String
   */
   @computed('isAscending')
   _direction(isAscending) {
@@ -150,31 +157,10 @@ export default Ember.Component.extend({
     Calculated total number of columns (colspan)
 
     @property totalColumns
-    @returns Number
+    @type Number
     @public
   */
   @alias('labels.length') totalColumns,
-
-  /**
-    Filter by search param from input
-
-    @method _applyFilter
-    @private
-  */
-  _applyFilter: observer('filter', function() {
-    let rows = get(this, 'rows');
-
-    //case insensitive
-    let filterQuery = get(this, 'filter');
-
-    filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
-    rows.filter((row) => {
-      let values = _.values(row);
-      let filterExp = new RegExp(filterQuery);
-      return set(row, '_filtered', !(filterExp).test((values.join(',')).toLowerCase()));
-    });
-
-  }),
 
   actions: {
 
@@ -185,7 +171,7 @@ export default Ember.Component.extend({
       @private
     */
     sortByLabel(label) {
-      let sortName = label.get('name').replace(/ /g, get(this, '_separator'));
+      let sortName = get(label, 'name').replace(/ /g, get(this, '_separator'));
       this.toggleProperty('isAscending');
       set(label, '_sortClass', get(this, 'isAscending') ? 'asc' : 'desc');
       set(this, 'sortLabel', sortName);
@@ -197,10 +183,12 @@ export default Ember.Component.extend({
       @method sendEditAction
       @private
     */
-    sendEditAction(row, key, value, action) {
+    sendEditAction(row, key, value, actionType) {
+      let action = get(this, actionType);
+
       set(row, '_editingRow', null);
-      if (get(this, action)) {
-        this.sendAction(action, {
+      if (action) {
+        action({
           row,
           key,
           value
