@@ -6,10 +6,9 @@ module.exports = {
     return entityName;
   },
 
+  /*
   afterInstall: function(options) {
-    // TODO : Is this still needed?
-    return this.addPackagesToProject([
-      { name: 'ember-lodash', target: '0.0.6' }
-    ]);
+    
   }
+  */
 };

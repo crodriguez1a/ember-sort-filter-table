@@ -72,6 +72,39 @@ let alphaSort = {
   ]
 };
 
+let alphaSortHypen = {
+  rows: [
+    {
+      'the-name': 'alpha'
+    },
+    {
+      'the-name': 'zeta'
+    }
+  ]
+};
+
+let alphaSortUnderscore = {
+  rows: [
+    {
+      'the_name': 'alpha'
+    },
+    {
+      'the_name': 'zeta'
+    }
+  ]
+};
+
+let alphaSortCamelCase = {
+  rows: [
+    {
+      'theName': 'alpha'
+    },
+    {
+      'theName': 'zeta'
+    }
+  ]
+};
+
 let numericSort = {
   rows: [
     {
@@ -184,6 +217,48 @@ test('it handles headers with underscores, hyphens, spaces, or camel case', func
 
 test('it sorts alphabetically', function(assert) {
   set(this, 'table', alphaSort);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  let $sortLabel = this.$('.sort-labels');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'zeta', 'Table was sorted alphabetically');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'alpha', 'Table was sorted again in the reverse');
+
+});
+
+test('it sorts alphabetically with hyphen separator', function(assert) {
+  set(this, 'table', alphaSortHypen);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  let $sortLabel = this.$('.sort-labels');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'zeta', 'Table was sorted alphabetically');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'alpha', 'Table was sorted again in the reverse');
+
+});
+
+test('it sorts alphabetically with underscore separator', function(assert) {
+  set(this, 'table', alphaSortUnderscore);
+  this.render(hbs`{{sort-filter-table table=table}}`);
+
+  let $sortLabel = this.$('.sort-labels');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'zeta', 'Table was sorted alphabetically');
+
+  $sortLabel.click();
+  assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), 'alpha', 'Table was sorted again in the reverse');
+
+});
+
+test('it sorts alphabetically with camelCase separator', function(assert) {
+  set(this, 'table', alphaSortCamelCase);
   this.render(hbs`{{sort-filter-table table=table}}`);
 
   let $sortLabel = this.$('.sort-labels');

@@ -66,56 +66,55 @@ export default Ember.Controller.extend({
     return {
       rows: [
         {
-          'last_name': 'Billups',
-          'first_name': 'Chauncey',
-          'display_name': 'Chauncey Billups',
-          'birthdate': '1976-09-25',
-          'age': 37,
-          'birthplace': 'Denver, Colorado, USA',
-
-          'height': '6\'3\'',
-          'weight': 202,
-          'position': 'PG',
-          'num': 1
+          'No.': 9,
+          'Player': 'Ron Harper',
+          'Pos': 'PG',
+          'Ht': '6-6',
+          'Wt': 185,
+          'Birth-Date': 'January 20 1964',
+          'Exp': 9,
+          'College': 'Miami University'
         },
         {
-          'last_name': 'Bynum',
-          'first_name': 'William',
-          'display_name': 'Will Bynum',
-          'birthdate': '1983-01-04',
-          'age': 30,
-          'birthplace': 'Chicago, Illinois, USA',
+          'No.': 23,
+          'Player': 'Michael Jordan',
+          'Pos': 'SG',
+          'Ht': '6-6',
+          'Wt': 195,
+          'Birth-Date': 'February 17 1963',
+          'Exp': 10,
+          'College': 'University of North Carolina'
+        },
 
-          'height': '6\'0\'',
-          'weight': 185,
-          'position': 'PG',
-          'num': 12
+        {
+          'No.': 13,
+          'Player': 'Luc Longley',
+          'Pos': 'C',
+          'Ht': '7-2',
+          'Wt': 265,
+          'Birth-Date': 'January 19 1969',
+          'Exp': 4,
+          'College': 'University of New Mexico'
         },
         {
-          'last_name': 'Caldwell-Pope',
-          'first_name': 'Kentavious',
-          'display_name': 'Kentavious Caldwell-Pope',
-          'birthdate': '1993-02-18',
-          'age': 20,
-          'birthplace': 'Thomaston, Georgia, USA',
-
-          'height': '6\'6\'',
-          'weight': 204,
-          'position': 'SG',
-          'num': 5
+          'No.': 33,
+          'Player': 'Scottie Pippen',
+          'Pos': 'SF',
+          'Ht': '6-8',
+          'Wt': 210,
+          'Birth-Date': 'September 25 1965',
+          'Exp': 8,
+          'College': 'University of Central Arkansas'
         },
         {
-          'last_name': 'Datome',
-          'first_name': 'Luigi',
-          'display_name': 'Luigi Datome',
-          'birthdate': '1987-11-27',
-          'age': 25,
-          'birthplace': 'Montebelluna, Italy',
-
-          'height': '6\'8\'',
-          'weight': 198,
-          'position': 'SG',
-          'num': 13
+          'No.': 91,
+          'Player': 'Dennis Rodman',
+          'Pos': 'PF',
+          'Ht': '6-7',
+          'Wt': 210,
+          'Birth-Date': 'May 13 1961',
+          'Exp': 9,
+          'College': 'Southeastern Oklahoma State University'
         }
       ]
     };

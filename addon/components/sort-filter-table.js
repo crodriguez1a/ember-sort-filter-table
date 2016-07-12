@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import layout from '../templates/components/sort-filter-table';
-import _ from 'lodash/lodash';
 import computed, { sort, alias } from 'ember-computed-decorators';
 import { isPrivateKey, primitiveKeys } from '../utils';
 
@@ -9,7 +8,7 @@ const {
   set
 } = Ember;
 
-const { keys } = Object;
+const { values } = Object;
 
 /**
   Sortable Filterable Table Component
@@ -52,9 +51,9 @@ export default Ember.Component.extend({
     filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
 
     return Ember.A(rows.filter((row) => {
-      let values = _.values(row);
+      let rowValues = values(row);
       let filterExp = new RegExp(filterQuery);
-      set(row, '_filtered', !(filterExp).test((values.join(',')).toLowerCase()));
+      set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));
       return row;
     }));
   },
@@ -108,16 +107,25 @@ export default Ember.Component.extend({
     @private
   */
   _handleSeparators(str) {
-    let separator = str.match(/[-  _]/g);
-    let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
-    separator = camelCase || separator;
+    let isPrivate = str[0] === '_';
 
-    if (separator && separator.length) {
-      set(this, '_separator', separator[0]);
-      return str.replace(new RegExp(separator[0], 'g'), ' ');
-    } else {
-      return str;
+    if (!isPrivate) {
+      let separator = str.match(/[-  _]/g);
+      let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
+      separator = camelCase || separator;
+
+      if (separator && separator.length) {
+        // save current separator
+        set(this, '_separator', separator[0]);
+
+        // return label without separator for display
+        return str.replace(new RegExp(separator[0], 'g'), ' ');
+      } else {
+        // pass through
+        return str;
+      }
     }
+
   },
 
   /**
@@ -172,8 +180,14 @@ export default Ember.Component.extend({
     */
     sortByLabel(label) {
       let sortName = get(label, 'name').replace(/ /g, get(this, '_separator'));
+
+      // toggle sort direction
       this.toggleProperty('isAscending');
+
+      // provide direction class
       set(label, '_sortClass', get(this, 'isAscending') ? 'asc' : 'desc');
+
+      // update sort label prop
       set(this, 'sortLabel', sortName);
     },
 

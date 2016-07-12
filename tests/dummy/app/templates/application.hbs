@@ -9,10 +9,10 @@
       {{#bulma-tabs isRight=true isBoxed=true}}
         <ul>
           <li class="is-active">
-            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>Source</a>
+            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp;Source</a>
           </li>
           <li>
-            <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i> Email</a>
+            <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp;Email</a>
           </li>
         </ul>
       {{/bulma-tabs}}
@@ -22,6 +22,14 @@
     <div class="content version-notes">
       <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
       <ul>
+      <li>
+        <strong>0.2.4</strong>
+        <ul>
+          <li>Update to Ember 2.6 - issue <a href="#https://github.com/crodriguez1a/ember-sort-filter-table/issues/25" target="_blank">#25</a></li>
+          <li>Replace lodash dependency with Object.values polyfill</li>
+          <li>Fixes issue <a href="https://github.com/crodriguez1a/ember-sort-filter-table/issues/26" target="_blank">#26</a></li>
+        </ul>
+      </li>
       <li>
         <strong>0.2.1</strong>
         <ul>
@@ -87,10 +95,10 @@ ember install ember-sort-filter-table
         {{/themed-syntax}}
       </p>
 
-      {{bulma-table table=small isBordered=true isStriped=true}}
+      {{sf-table table=small isBordered=true isStriped=true}}
 
       <p>
-        {{#themed-syntax lang="javascript" theme="dark"}}
+        {{#themed-syntax lang="javascript" theme="dark" withBuffers=false}}
 /* Using font awesome icons (not included) */
 myTableModel: {
   rows: [
@@ -125,7 +133,7 @@ myTableModel: {
         </p>
 
         <p>
-          {{#themed-syntax lang="javascript" theme="dark"}}
+          {{#themed-syntax lang="javascript" theme="dark" withBuffers=false}}
 let devs = {
   rows:[
     {
@@ -147,7 +155,7 @@ let devs = {
          The model above would display as below. Although the <code>_tags</code> key is designated private and does not display, its value is still considered.
         </p>
 
-        {{bulma-table isBordered=true table=devs filterPlaceholder="Type android or ios"}}
+        {{sf-table isBordered=true table=devs filterPlaceholder="Type android or ios"}}
       </div>
   {{/bulma-section}}
 
@@ -159,7 +167,7 @@ let devs = {
           <strong>filterable</strong> <em>Bool</em> - Signal if filter input should display. Default is <code>true</code>
         </li>
         <li>
-          <strong>filterPlaceholder</strong> <em>String</em> - Placeholder text for filter input. Default is <code>`Filter`</code>
+          <strong>filterPlaceholder</strong> <em>String</em> - Placeholder text for filter input. Default is <code>"Filter"</code>
         </li>
         <li>
           <strong>editable</strong> <em>Bool</em> - Signal if editing dialogue should display. Default is <code>false</code>
@@ -171,7 +179,7 @@ let devs = {
   {{#bulma-section}}
     <div class="content">
       <h3>Editable Example</h3>
-      {{bulma-table isStriped=true isBordered=true table=big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
+      {{sf-table isStriped=true isBordered=true table=big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
 
       {{#themed-syntax lang="htmlbars" theme="dark"}}
 &#123;&#123;sf-table table=model editable=true edit=(action "myEditAction") cancel=(action "myCancelAction") &#125;&#125;
@@ -187,7 +195,7 @@ let devs = {
         </ul>
       </p>
 
-      {{#themed-syntax lang="javascript" theme="dark"}}
+      {{#themed-syntax lang="javascript" theme="dark" withBuffers=false}}
 // controller.js
 actions: {
 
@@ -206,14 +214,15 @@ actions: {
 
   {{#bulma-section}}
     <div class="content">
-      <h3>Enhancements</h3>
+      <h3>To-do List</h3>
       <ul>
         <li>Ember Data Support</li>
         <li>Block Syntax</li>
+        <li>Issues</li>
       </ul>
 
       <p>
-        <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i> Contribute</a>
+        <i class="fa fa-github"></i> <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank">Contribute</a>
       </p>
     </div>
   {{/bulma-section}}
@@ -227,10 +236,10 @@ actions: {
     {{#bulma-tabs isRight=true}}
       <ul>
         <li>
-          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>Source</a>
+          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp; Source</a>
         </li>
         <li>
-          <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i> Email</a>
+          <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp; Email</a>
         </li>
       </ul>
     {{/bulma-tabs}}

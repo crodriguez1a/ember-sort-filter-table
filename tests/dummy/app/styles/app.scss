@@ -1,61 +1,24 @@
-$grey: #777;
-$grey-light: #ccc;
-$grey-dark: #232323;
+@import 'bulma';
 
-.fa {
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -0.5%;
-
-  &.big {
-    font-size: 1.75em;
-  }
-}
-
-pre {
-  border: 1px solid $grey-light;
-}
-
-.content {
-  ul {
-    &.edit-field {
-      list-style: none;
-      margin: 0;
-    }
-  }
-}
-
-th {
-  &.table-header {
-    padding-bottom: 1.5em;
+* {
+  i.fa {
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
+    margin-top: -0.5%;
+  }
 
-    &.asc:after {
-			content: "\f077";
-		}
-		&.desc:after {
-			content: "\f078";
-		}
+  .button.cancel {
+    @extend .is-danger;
+  }
 
-    &:after {
-      font-family: 'FontAwesome';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      color: $grey;
-      font-size: 60%;
-      text-align: center;
-      background: rgba(0,0,0, 0.025);
-      padding: 0.25em;
-    }
+  button.edit {
+    @extend .is-primary;
+  }
 
-    a {
-      color: $grey;
-      text-transform: capitalize;
-      font-size: 0.9em;
-      text-decoration: underline;
+  .edit-field {
+    li {
+      list-style: none;
     }
   }
 }
