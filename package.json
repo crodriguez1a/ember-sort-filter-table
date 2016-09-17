@@ -1,7 +1,7 @@
 {
   "name": "ember-sort-filter-table",
   "version": "0.2.6",
-  "description": "An ember table addon with sorting and filtering.",
+  "description": "An ember addon for a table that has sorting and filtering.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -32,7 +32,6 @@
     "ember-cli-sass": "5.3.0",
     "ember-cli-sri": "^2.0.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-composable-helpers": "0.20.0",
     "ember-data": "^2.6.1",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-disable-proxy-controllers": "^1.0.1",
