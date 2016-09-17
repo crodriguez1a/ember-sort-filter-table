@@ -5,7 +5,8 @@ import { isPrivateKey, primitiveKeys } from '../utils';
 
 const {
   get,
-  set
+  set,
+  A: emArray
 } = Ember;
 
 const { values } = Object;
@@ -51,7 +52,7 @@ export default Ember.Component.extend({
     //case insensitive
     filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
 
-    return Ember.A(rows.filter((row) => {
+    return emArray(rows.filter((row) => {
       let rowValues = values(row);
       let filterExp = new RegExp(filterQuery);
       set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));
@@ -82,7 +83,6 @@ export default Ember.Component.extend({
   @computed('headings')
   labels(headings) {
     let rows = get(this, 'rows');
-    // TODO deconstruct A and Object
     return Ember.A(headings.map((item) => {
       return Ember.Object.create({
         _key: item,
