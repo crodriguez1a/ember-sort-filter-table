@@ -5,8 +5,7 @@ import computed from 'ember-computed-decorators';
 const {
   Component,
   get,
-  set,
-  getOwner
+  set
 } = Ember;
 
 export default Component.extend({
