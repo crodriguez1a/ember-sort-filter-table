@@ -5,7 +5,8 @@ import { isPrivateKey, primitiveKeys } from '../utils';
 
 const {
   get,
-  set
+  set,
+  A: emArray
 } = Ember;
 
 const { values } = Object;
@@ -20,6 +21,7 @@ export default Ember.Component.extend({
   layout,
   tagName: 'table',
   classNames: ['sort-filter-table table'],
+
   /**
    Config: Signal if filter input field should be included
 
@@ -50,7 +52,7 @@ export default Ember.Component.extend({
     //case insensitive
     filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
 
-    return Ember.A(rows.filter((row) => {
+    return emArray(rows.filter((row) => {
       let rowValues = values(row);
       let filterExp = new RegExp(filterQuery);
       set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));

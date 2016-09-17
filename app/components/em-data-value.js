@@ -1,0 +1,1 @@
+export { default } from 'ember-sort-filter-table/components/em-data-value';

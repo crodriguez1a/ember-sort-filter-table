@@ -1,0 +1,9 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#if (is-image value)}}
+    <img src="{{value}}" class="sftable-em-data-img" />
+  {{else}}
+    {{{value}}}
+  {{/if}}
+{{/if}}

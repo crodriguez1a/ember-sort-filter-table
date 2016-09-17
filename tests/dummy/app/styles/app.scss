@@ -1,11 +1,28 @@
+$fontFamily: monospace;
 @import 'bulma';
 
 * {
+  .tab.is-active {
+    i.fa {
+      border-color: $primary;
+      color: $primary;
+    }
+  }
   i.fa {
     display: inline-block;
     vertical-align: middle;
     position: relative;
     margin-top: -0.5%;
+
+    &.expiremental {
+      font-size: 95%;
+      padding: 0.25rem;
+      border-radius: 100%;
+      border: 1px dotted $grey;
+      margin: 0.2rem 0 0 0.5rem;
+      vertical-align: bottom;
+      color: $grey-dark;
+    }
   }
 
   .button.cancel {
@@ -19,6 +36,34 @@
   .edit-field {
     li {
       list-style: none;
+    }
+  }
+
+  section.section {
+    padding: 1.5rem;
+  }
+
+  // ember data
+  .sftable-em-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .sf-table--filter {
+    position: relative;
+  }
+
+  a.sf-table--clear-field {
+    &:after {
+      display: block;
+      vertical-align: middle;
+      position: absolute;
+      content: '\f00d';
+      font-family: 'FontAwesome', sans-serif;
+      top: 3px;
+      right: 0.5rem;
+      width: 1rem;
+      height: 100%;
     }
   }
 }

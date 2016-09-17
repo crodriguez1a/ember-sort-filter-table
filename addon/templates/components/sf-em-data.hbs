@@ -1,0 +1,35 @@
+{{#if hasBlock}}
+  {{yield this}}
+{{else}}
+  {{#each (sort-by (concat group.groupSortKey ':' group.groupDirection) poja) as |record|}}
+    {{#if (hash-contains record group.groupQuery)}}
+      <tr>
+        {{#each-keys object=record as | key value|}}
+          {{#unless (is-private-key key)}}
+            <td>
+              {{#if shouldListNested}}
+                {{#if (is-array value)}}
+                  <ul class="sftable-nested-array">
+                    {{#each value as |v|}}
+                      <li>{{em-data-value value=v}}</li>
+                    {{/each}}
+                  </ul>
+                {{else if (is-object value)}}
+                  <ul class="sftable-nested-object">
+                    {{#each-keys object=value as | k v |}}
+                      <li>{{em-data-value value=v}}</li>
+                    {{/each-keys}}
+                  </ul>
+                {{else}}
+                  {{em-data-value value=value}}
+                {{/if}}
+              {{else}}
+                {{em-data-value value=value}}
+              {{/if}}
+            </td>
+          {{/unless}}
+        {{/each-keys}}
+      </tr>
+      {{/if}}
+  {{/each}}
+{{/if}}

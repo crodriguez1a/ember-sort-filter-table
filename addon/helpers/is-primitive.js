@@ -1,5 +1,9 @@
 import Ember from 'ember';
 
+const {
+  Helper: { helper }
+} = Ember;
+
 /**
   Signal if a value is primitive type (exluding null and undefined)
 
@@ -12,4 +16,4 @@ export function isPrimitive(params/*, hash*/) {
   return typeof val === 'string' || typeof val === 'boolean' || typeof val === 'number';
 };
 
-export default Ember.Helper.helper(isPrimitive);
+export default helper(isPrimitive);

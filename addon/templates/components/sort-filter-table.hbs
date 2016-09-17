@@ -1,8 +1,11 @@
 {{#if hasBlock}}
   {{!Block syntax}}
-  {{yield}}
+  {{yield this}}
 {{else}}
-  {{#if table}}
+  {{!ember data}}
+  {{#if store}}
+    {{!TODO Inline ember data support}}
+  {{else if table}}
   <thead>
     {{!Labels}}
     <tr>
@@ -23,6 +26,7 @@
     {{/if}}
   </thead>
   <tbody>
+
     {{!Sort by label }}
     {{#each (sort-by (concat sortLabel _direction) rows) as |row|}}
       {{#unless row._filtered}}
