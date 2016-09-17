@@ -9,7 +9,7 @@ import { isPrivateKey as _isPrivate } from '../utils';
 */
 export function isPrivateKey(params/*, hash*/) {
   let key = params[0];
-  return _isPrivate(key);
+  return key ? _isPrivate(key) : false ;
 };
 
 export default Ember.Helper.helper(isPrivateKey);

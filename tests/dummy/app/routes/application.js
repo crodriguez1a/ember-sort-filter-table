@@ -1,7 +1,24 @@
 import Ember from 'ember';
 
-export default Ember.Route.extend({
+const {
+  Route,
+  get,
+  set,
+  run: { later }
+} = Ember;
+
+export default Route.extend({
   model() {
-    // TODO: Ember Data support
+    return get(this, 'store').findAll('demo');
+  },
+
+  afterModel() {
+    this.controllerFor('application').set('isLoading', false);
+  },
+
+  actions: {
+    loading(transition, originRoute) {
+      this.controllerFor('application').set('isLoading', true);
+    }
   }
 });

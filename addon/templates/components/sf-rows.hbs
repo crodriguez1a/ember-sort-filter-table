@@ -1,0 +1,15 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#each (sort-by (concat group.groupSortKey ':' group.groupDirection) rows) as |item|}}
+    {{#if (array-query item group.groupQuery)}}
+      <tr>
+        {{#each-keys object=item as | key value|}}
+          {{#unless (is-private-key key)}}
+            <td>{{{value}}}</td>
+          {{/unless}}
+        {{/each-keys}}
+      </tr>
+      {{/if}}
+  {{/each}}
+{{/if}}

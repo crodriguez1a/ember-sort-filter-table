@@ -1,0 +1,80 @@
+{{#bulma-section}}
+  <div class="content">
+    <p>
+      A table that relies on Ember Data can be composed using the following components:
+      <ul>
+        <li><code>sf-table</code> </li>
+        <li>
+          <code>sf-headings</code>
+          <ul>
+            <li><strong>headings</strong> <em>Array</em> - a list of (key) names and their corresponding display names.</li>
+          </ul>
+        </li>
+        <li>
+          <code>sf-filter</code>
+          <ul>
+            <li><strong>placeholder</strong> <em>String</em> - Placeholder text for filter input. Default is <code>"Filter"</code></li>
+            <li><strong>withClearField</strong> <em>Bool</em> - appends a link to clear the input field. Default is <code>false</code></li>
+          </ul>
+        </li>
+        <li>
+          <code>sf-em-data</code>
+          <ul>
+            <li><strong>store</strong> <em>Class</em> - An ember data store</li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+    <p>
+      Components within a table communicate via the yielded <code>group</code> parameter.
+    </p>
+    <p>
+     {{#themed-syntax lang="handlebars" theme="dark"}}
+&#123;&#123;#sf-table as |group|&#125;&#125;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &#123;&#123;sf-headings
+        headings=(array
+        (hash key="title" display="Title")
+        (hash key="score" display="Score")
+        (hash key="publisher" display="Publisher")
+        (hash key="short_description" display="Description")
+        (hash key="platforms" display="Platforms")
+        (hash key="thumb" display="Cover")
+        ) group=group&#125;&#125;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tr&gt;&lt;td colspan="99"&gt;&#123;&#123;sf-filter placeholder="Search" withClearField=true group=group&#125;&#125;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tbody&gt;
+    &#123;&#123;sf-em-data store=model group=group&#125;&#125;
+  &lt;/tbody&gt;
+&#123;&#123;/sf-table&#125;&#125;
+      {{/themed-syntax}}
+    </p>
+
+    {{#sf-table class="is-striped" as |group|}}
+      <thead>
+        <tr>
+          {{sf-headings
+            headings=(array
+            (hash key="title" display="Title")
+            (hash key="score" display="Score")
+            (hash key="publisher" display="Publisher")
+            (hash key="short_description" display="Description")
+            (hash key="platforms" display="Platforms")
+            (hash key="thumb" display="Cover")
+            ) group=group}}
+        </tr>
+      </thead>
+      <thead>
+        <tr><td colspan="99">
+          {{sf-filter group=group placeholder="Search" withClearField=true}}
+        </td></tr>
+      </thead>
+      <tbody>
+        {{sf-em-data store=model group=group}}
+      </tbody>
+    {{/sf-table}}
+</div>
+
+{{/bulma-section}}

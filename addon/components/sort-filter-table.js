@@ -20,6 +20,7 @@ export default Ember.Component.extend({
   layout,
   tagName: 'table',
   classNames: ['sort-filter-table table'],
+
   /**
    Config: Signal if filter input field should be included
 
@@ -81,6 +82,7 @@ export default Ember.Component.extend({
   @computed('headings')
   labels(headings) {
     let rows = get(this, 'rows');
+    // TODO deconstruct A and Object
     return Ember.A(headings.map((item) => {
       return Ember.Object.create({
         _key: item,

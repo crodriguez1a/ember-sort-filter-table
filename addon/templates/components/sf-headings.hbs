@@ -1,0 +1,11 @@
+{{#if hasBlock}}
+  {{yield}}
+{{else}}
+  {{#each headings as |heading|}}
+    <th class="table-header {{heading._sortClass}} {{concat 'key-' heading.key}}">
+      <a href="#" class="sort-headings {{heading._sortClass}}" {{action "sort" heading.key}}>
+        <span>{{{heading.display}}}</span>
+      </a>
+    </th>
+  {{/each}}
+{{/if}}
