@@ -37,9 +37,10 @@ export default Component.extend({
     if (store) {
       store.toArray().map((item) => {
         let arr = {};
+        // Extract pojo from record
         let internalModel = get(item, '_internalModel._data');
 
-        // strip away ember data prototype
+        // Strip away ember data properties
         for (var i in internalModel) {
           arr[i] = internalModel[i];
         }

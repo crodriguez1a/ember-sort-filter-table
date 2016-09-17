@@ -6,8 +6,6 @@ const {
   Component,
   get,
   set,
-  Object: emObj,
-  A: emArr
 } = Ember;
 
 export default Component.extend({
@@ -16,11 +14,18 @@ export default Component.extend({
 
   actions: {
     /**
-
-    */
+      * Updates sort key and direction
+      *
+      * @method sort
+      * @param key {String}
+      * @public
+      */
     sort(key) {
+      // Reference current direction
       let dir = get(this, 'group.groupDirection');
+      // Toggle direction
       set(this, 'group.groupDirection', dir === 'asc' ? 'desc' : 'asc');
+      // Update sort key
       set(this, 'group.groupSortKey', key);
     }
   }

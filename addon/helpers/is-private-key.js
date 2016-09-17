@@ -1,5 +1,10 @@
 import Ember from 'ember';
 import { isPrivateKey as _isPrivate } from '../utils';
+
+const {
+  Helper: { helper }
+} = Ember;
+
 /**
   Object keys with a leading underscore should be designated as private
 
@@ -12,4 +17,4 @@ export function isPrivateKey(params/*, hash*/) {
   return key ? _isPrivate(key) : false ;
 };
 
-export default Ember.Helper.helper(isPrivateKey);
+export default helper(isPrivateKey);

@@ -2,7 +2,7 @@
   {{yield this}}
 {{else}}
   {{#each (sort-by (concat group.groupSortKey ':' group.groupDirection) poja) as |record|}}
-    {{#if (array-query record group.groupQuery)}}
+    {{#if (hash-contains record group.groupQuery)}}
       <tr>
         {{#each-keys object=record as | key value|}}
           {{#unless (is-private-key key)}}

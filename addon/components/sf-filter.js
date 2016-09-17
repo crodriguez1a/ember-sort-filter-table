@@ -14,7 +14,11 @@ export default Component.extend({
   placeholder: 'Filter',
   actions: {
     /**
-    */
+      * Clear the current filter query
+      *
+      * @method clearField
+      * @private
+      */
     clearField() {
       set(this, 'group.groupQuery', null);
     }
