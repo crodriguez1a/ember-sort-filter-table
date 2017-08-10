@@ -43,7 +43,8 @@ export default Component.extend({
   _filterByHeadings(arr, headings) {
     return arr.map((hash) => {
       for (let key in hash) {
-        if (headings.includes(key)) {
+        if (!headings.includes(key)) {
+          delete hash[key]
           return hash;
         }
       }
@@ -71,7 +72,5 @@ export default Component.extend({
       }
     }
     return objArr;
-  },
-
-
+  }
 });

@@ -1,8 +1,14 @@
 {
   "name": "ember-sort-filter-table",
-  "dependencies": {
+  "devDependencies": {
     "highlightjs": "^9.4.0",
     "code-highlight-linenums": "^0.2.0",
     "hljs-themes": "^0.0.7"
+  },
+  "resolutions": {
+    "ember": "release"
+  },
+  "dependencies": {
+    "ember": "components/ember#release"
   }
 }
