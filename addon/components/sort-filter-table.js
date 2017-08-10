@@ -1,13 +1,10 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import EmberObject, { get, set } from '@ember/object';
+import { A } from "@ember/array"
 import layout from '../templates/components/sort-filter-table';
-import computed, { sort, alias } from 'ember-computed-decorators';
+import { computed } from 'ember-decorators/object';
+import { alias } from 'ember-decorators/object/computed';
 import { isPrivateKey, primitiveKeys } from '../utils';
-
-const {
-  get,
-  set,
-  A: emArray
-} = Ember;
 
 const { values } = Object;
 
@@ -17,7 +14,7 @@ const { values } = Object;
   @class SortFilterTable
   @extends Ember.Component
 */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'table',
   classNames: ['sort-filter-table table'],
@@ -52,7 +49,7 @@ export default Ember.Component.extend({
     //case insensitive
     filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
 
-    return emArray(rows.filter((row) => {
+    return A(rows.filter((row) => {
       let rowValues = values(row);
       let filterExp = new RegExp(filterQuery);
       set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));
@@ -69,7 +66,7 @@ export default Ember.Component.extend({
   */
   @computed('rows')
   headings(rows) {
-    return Ember.A(primitiveKeys(rows[0]));
+    return A(primitiveKeys(rows[0]));
   },
 
   /**
@@ -82,9 +79,8 @@ export default Ember.Component.extend({
   */
   @computed('headings')
   labels(headings) {
-    let rows = get(this, 'rows');
-    return Ember.A(headings.map((item) => {
-      return Ember.Object.create({
+    return A(headings.map((item) => {
+      return EmberObject.create({
         _key: item,
         name: this._handleSeparators(item),
         _sortClass: 'asc',
@@ -112,7 +108,7 @@ export default Ember.Component.extend({
     let isPrivate = str[0] === '_';
 
     if (!isPrivate) {
-      let separator = str.match(/[-  _]/g);
+      let separator = str.match(/[-\s_]/g);
       let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
       separator = camelCase || separator;
 
@@ -170,7 +166,25 @@ export default Ember.Component.extend({
     @type Number
     @public
   */
-  @alias('labels.length') totalColumns,
+  @alias('labels.length') totalColumns: 0,
+
+  /**
+    * Key to sorty by
+    *
+    * @property blockSortKey
+    * @type String
+    * @public
+    */
+  blockSortKey: 'none',
+
+  /**
+    * Sort direction (asc/desc)
+    *
+    * @property blockSortDirection
+    * @type String
+    * @public
+    */
+  blockSortDirection: 'desc',
 
   actions: {
 

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../templates/components/each-keys';
-import computed from 'ember-computed-decorators';
+import { computed } from 'ember-decorators/object';
 
 /**
   Credit: rwjblue
@@ -14,7 +14,7 @@ const { keys } = Object;
   @class EachKeys
   @extends Ember.Component
 */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: '',
   @computed('object')

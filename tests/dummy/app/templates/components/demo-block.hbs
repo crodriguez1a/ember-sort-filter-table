@@ -32,25 +32,25 @@
     </p>
     <p>
      {{#themed-syntax lang="handlebars" theme="dark"}}
-&#123;&#123;#sf-table as |group|&#125;&#125;
+&#123;&#123;#sf-table as | sf |&#125;&#125;
   &lt;thead&gt;
     &lt;tr&gt;
-      &#123;&#123;sf-headings
+      &#123;&#123;sf.headings
         headings=(array
         (hash key="firstName" display="First Name")
         (hash key="lastName" display="Last Name")
         (hash key="number" display="No.")
         (hash key="position" display="Pos.")
-        ) group=group&#125;&#125;
+        )&#125;&#125;
     &lt;/tr&gt;
   &lt;/thead&gt;
-  &lt;tr&gt;&lt;td colspan="99"&gt;&#123;&#123;sf-filter placeholder="Search" group=group&#125;&#125;&lt;/td&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan="99"&gt;&#123;&#123;sf.filter placeholder="Search"&#125;&#125;&lt;/td&gt;&lt;/tr&gt;
   &lt;tbody&gt;
-    &#123;&#123;sf-rows rows=(array
+    &#123;&#123;sf.rows rows=(array
       (hash firstName='Michael' lastName='Jordan' number='23' position='G' _tags='guard north carolina')
       (hash firstName='Scottie' lastName='Pippen' number='33' position='SF' _tags='small forward central arkansas')
       (hash firstName='Horace' lastName='Grant' number='54' position='F' _tags='power forward clemson')
-      ) group=group&#125;&#125;
+      )&#125;&#125;
   &lt;/tbody&gt;
 &#123;&#123;/sf-table&#125;&#125;
       {{/themed-syntax}}
@@ -60,40 +60,40 @@
       As with inline usage, you can still designate <strong>properties that will not be displayed</strong>, using the an <strong>underscore</strong> (<code>_tags="small forward marquette"</code>).
     </p>
 
-    {{#sf-table as |group|}}
+    {{#sf-table as | sf |}}
       <thead>
         <tr>
-          {{sf-headings
+          {{sf.headings
             headings=(array
             (hash key="firstName" display="First Name")
             (hash key="lastName" display="Last Name")
             (hash key="number" display="No.")
             (hash key="position" display="Pos.")
-            ) group=group}}
+            )}}
         </tr>
       </thead>
       <thead>
-        <tr><td colspan="99">{{sf-filter group=group placeholder="Search"}}</td></tr>
+        <tr><td colspan="99">{{sf-filter  placeholder="Search"}}</td></tr>
       </thead>
       <thead>
         <tr><th colspan="99">1990s</th></tr>
       </thead>
       <tbody>
-        {{sf-rows rows=(array
+        {{sf.rows rows=(array
           (hash firstName='Michael' lastName='Jordan' number='23' position='G' _tags='guard north carolina')
           (hash firstName='Scottie' lastName='Pippen' number='33' position='SF' _tags='small forward central arkansas')
           (hash firstName='Horace' lastName='Grant' number='54' position='F' _tags='power forward clemson')
-          ) group=group}}
+          )}}
       </tbody>
       <thead>
         <tr><th colspan="99">Today</th></tr>
       </thead>
       <tbody>
-        {{sf-rows rows=(array
+        {{sf.rows rows=(array
           (hash firstName='Dwyane' lastName='Wade' number='3' position='G' _tags='guard marquette')
           (hash firstName='Jimmy' lastName='Butler' number='21' position='SF' _tags='small forward marquette')
           (hash firstName='Rajan' lastName='Rondo' number='9' position='G' _tags='guard kentucky')
-          ) group=group}}
+          )}}
       </tbody>
     {{/sf-table}}
 </div>

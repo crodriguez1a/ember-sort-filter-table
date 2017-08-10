@@ -1,12 +1,12 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  {{#each (sort-by (concat group.groupSortKey ':' group.groupDirection) rows) as |item|}}
-    {{#if (hash-contains item group.groupQuery)}}
+  {{#each (sort-by (concat group.blockSortKey ':' group.blockSortDirection) rows) as |item|}}
+    {{#if (hash-contains item group.blockQuery)}}
       <tr>
         {{#each-keys object=item as | key value|}}
           {{#unless (is-private-key key)}}
-            <td>{{{value}}}</td>
+            <td>{{html-safe value}}</td>
           {{/unless}}
         {{/each-keys}}
       </tr>

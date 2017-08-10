@@ -1,6 +1,11 @@
 {{#if hasBlock}}
   {{!Block syntax}}
-  {{yield this}}
+  {{yield (hash
+    headings=(component 'sf-headings' group=this)
+    filter=(component 'sf-filter' group=this)
+    rows=(component 'sf-rows' group=this)
+    )
+  }}
 {{else}}
   {{!ember data}}
   {{#if store}}

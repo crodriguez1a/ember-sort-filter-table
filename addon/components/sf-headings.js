@@ -1,12 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, set } from '@ember/object';
 import layout from '../templates/components/sf-headings';
-import computed from 'ember-computed-decorators';
-
-const {
-  Component,
-  get,
-  set,
-} = Ember;
 
 export default Component.extend({
   layout,
@@ -22,11 +16,11 @@ export default Component.extend({
       */
     sort(key) {
       // Reference current direction
-      let dir = get(this, 'group.groupDirection');
+      let dir = get(this, 'group.blockSortDirection');
       // Toggle direction
-      set(this, 'group.groupDirection', dir === 'asc' ? 'desc' : 'asc');
+      set(this, 'group.blockSortDirection', dir === 'asc' ? 'desc' : 'asc');
       // Update sort key
-      set(this, 'group.groupSortKey', key);
+      set(this, 'group.blockSortKey', key);
     }
   }
 });

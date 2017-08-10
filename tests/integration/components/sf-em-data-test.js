@@ -1,4 +1,4 @@
-import { moduleForComponent, moduleForModel, test } from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('sf-em-data', 'Integration | Component | sf em data', {

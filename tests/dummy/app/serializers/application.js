@@ -5,7 +5,7 @@ const {
 } = DS;
 
 export default JSONAPISerializer.extend({
-  normalizeResponse(status, headers, payload, requestData) {
+  normalizeResponse(status, headers, payload, /*requestData*/) {
     return {
       data: payload.map((item, index) => {
         return {

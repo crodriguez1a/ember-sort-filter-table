@@ -1,11 +1,5 @@
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-
-const {
-  Component,
-  get,
-  set
-} = Ember;
+import Component from '@ember/component';
+import { computed } from 'ember-decorators/object';
 
 export default Component.extend({
   /**
