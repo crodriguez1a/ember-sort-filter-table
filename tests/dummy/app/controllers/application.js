@@ -5,7 +5,7 @@ export default Controller.extend({
   showInline: true,
   showBlock: false,
   showEmberData: false,
-  activeSection: 'inline',
+  activeSection: 'ember-data',
 
   actions: {
     show(section) {

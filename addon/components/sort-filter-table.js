@@ -171,20 +171,20 @@ export default Component.extend({
   /**
     * Key to sorty by
     *
-    * @property blockSortKey
+    * @property groupSortKey
     * @type String
     * @public
     */
-  blockSortKey: 'none',
+  groupSortKey: 'none',
 
   /**
     * Sort direction (asc/desc)
     *
-    * @property blockSortDirection
+    * @property groupSortDirection
     * @type String
     * @public
     */
-  blockSortDirection: 'desc',
+  groupSortDirection: 'desc',
 
   actions: {
 

@@ -4,6 +4,6 @@
   {{#if (is-image value)}}
     <img src="{{value}}" class="sftable-em-data-img" />
   {{else}}
-    {{{value}}}
+    {{html-safe value}}
   {{/if}}
 {{/if}}

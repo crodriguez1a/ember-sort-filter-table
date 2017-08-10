@@ -15,7 +15,7 @@ export default Component.extend({
       * @private
       */
     clearField() {
-      set(this, 'group.blockQuery', null);
+      set(this, 'group.groupQuery', null);
     }
   }
 });

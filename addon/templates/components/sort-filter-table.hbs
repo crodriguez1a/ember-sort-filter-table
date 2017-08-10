@@ -4,6 +4,7 @@
     headings=(component 'sf-headings' group=this)
     filter=(component 'sf-filter' group=this)
     rows=(component 'sf-rows' group=this)
+    data=(component 'sf-em-data' group=this)
     )
   }}
 {{else}}
@@ -16,7 +17,7 @@
     <tr>
       {{#each (filter-by "_isPrivate" false labels) as |label|}}
         <th class="table-header {{label._sortClass}} {{label._key}}">
-          <a href="#" class="sort-labels {{label._sortClass}}" {{action "sortByLabel" label}}><span>{{{label.name}}}</span></a>
+          <a href="#" class="sort-labels {{label._sortClass}}" {{action "sortByLabel" label}}><span>{{html-safe label.name}}</span></a>
         </th>
       {{/each}}
     </tr>
@@ -53,11 +54,11 @@
                         </li>
                       </ul>
                     {{else}}
-                      <a href="#" class="edit-value" {{action "editValue" row key}}>{{{value}}}</a>
+                      <a href="#" class="edit-value" {{action "editValue" row key}}>{{html-safe value}}</a>
                     {{/if}}
                   {{else}}
                     {{!Cannot edit}}
-                    {{{value}}}
+                    {{html-safe value}}
                   {{/if}}
                 </td>
               {{/if}}

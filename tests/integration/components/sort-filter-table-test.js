@@ -108,10 +108,10 @@ let alphaSortCamelCase = {
 let numericSort = {
   rows: [
     {
-      number: 0
+      number: "0"
     },
     {
-      number: 1
+      number: "1"
     }
   ]
 };
@@ -279,7 +279,6 @@ test('it sorts numerically', function(assert) {
 
   $sortLabel.click();
   assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '1', 'Table was sorted numerically');
-
   $sortLabel.click();
   assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '0', 'Table was sorted again in the reverse');
 });

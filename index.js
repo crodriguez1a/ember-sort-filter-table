@@ -3,7 +3,7 @@
 
 module.exports = {
   name: 'ember-sort-filter-table',
-  init: function(app) {
+  init: function(/*(app*/) {
     this._super.init && this._super.init.apply(this, arguments);
 
     this.options = this.options || {};

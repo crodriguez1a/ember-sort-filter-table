@@ -1,8 +1,8 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  <input placeholder={{placeholder}} oninput={{action (mut group.blockQuery) value="target.value"}} class="sf-table--input input" value="{{group.blockQuery}}" />
-  {{#if (and withClearField group.blockQuery)}}
+  <input placeholder={{placeholder}} oninput={{action (mut group.groupQuery) value="target.value"}} class="sf-table--input input" value="{{group.groupQuery}}" />
+  {{#if (and withClearField group.groupQuery)}}
     <a class="sf-table--clear-field" {{action 'clearField'}}></a>
   {{/if}}
 {{/if}}

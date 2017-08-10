@@ -1,8 +1,8 @@
 {{#if hasBlock}}
   {{yield}}
 {{else}}
-  {{#each (sort-by (concat group.blockSortKey ':' group.blockSortDirection) rows) as |item|}}
-    {{#if (hash-contains item group.blockQuery)}}
+  {{#each (sort-by (concat group.groupSortKey ':' group.groupSortDirection) rows) as |item|}}
+    {{#if (hash-contains item group.groupQuery)}}
       <tr>
         {{#each-keys object=item as | key value|}}
           {{#unless (is-private-key key)}}
