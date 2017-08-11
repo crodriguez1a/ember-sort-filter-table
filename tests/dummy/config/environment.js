@@ -23,9 +23,9 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    'ember-bulma': {
-      except: ['bulma-container'] // excludes `bulma-container` https://github.com/open-tux/ember-bulma/issues/78
-    }
+    // 'ember-bulma': {
+    //   except: ['bulma-container'] // excludes `bulma-container` https://github.com/open-tux/ember-bulma/issues/78
+    // }
   };
 
   if (environment === 'development') {
