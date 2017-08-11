@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 // since run-loop is disabled, wrap any code with asynchronous side-effects in a run
@@ -174,6 +174,10 @@ test('it renders', function(assert) {
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');
+});
+
+skip('contextual component implementation is backwards compatiple', function(assert) {
+  assert.ok(false);
 });
 
 test('it assembles header labels', function(assert) {
