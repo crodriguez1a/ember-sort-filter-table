@@ -7,10 +7,9 @@ export default Component.extend({
   tagName: '',
   init() {
     this._super(...arguments);
-    if (get(this, 'headings')) {
-      set(this, 'group.groupHeadings', get(this, 'headings').getEach('key'))
-    }
+    this._syncWithGroup();
   },
+
   actions: {
     /**
       * Updates sort key and direction
@@ -26,6 +25,18 @@ export default Component.extend({
       set(this, 'group.groupSortDirection', dir === 'asc' ? 'desc' : 'asc');
       // Update sort key
       set(this, 'group.groupSortKey', key);
+    }
+  },
+
+  /**
+    Provide headings to group
+
+    @method _syncWithGroup
+    @private
+  */
+  _syncWithGroup() {
+    if (get(this, 'headings')) {
+      set(this, 'group.groupHeadings', get(this, 'headings').getEach('key'));
     }
   }
 });

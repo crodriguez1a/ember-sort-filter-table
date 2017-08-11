@@ -1,17 +1,17 @@
 {
   "name": "ember-sort-filter-table",
   "version": "0.3.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "A sortable/filterable table add-on for your ember application",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
-  "author": "",
+  "author": "@crodriguez1a",
   "directories": {
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "",
+  "repository": "https://github.com/crodriguez1a/ember-sort-filter-table",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
