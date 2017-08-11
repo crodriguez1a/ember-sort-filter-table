@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import EmberObject, { get, set } from '@ember/object';
-import { A } from "@ember/array"
+import { A } from '@ember/array'
 import layout from '../templates/components/sort-filter-table';
 import { computed } from 'ember-decorators/object';
 import { alias } from 'ember-decorators/object/computed';
@@ -35,7 +35,16 @@ export default Component.extend({
     @public
     @type String
   */
-  filterPlaceholder: "filter",
+  filterPlaceholder: 'filter',
+
+  /**
+    A query or filter provided by input
+
+    @property filter
+    @public
+    @type String
+  */
+  filter: '',
 
   /**
     Only display rows with primitive values and public keys
@@ -46,12 +55,9 @@ export default Component.extend({
   */
   @computed('table.rows', 'filter')
   rows(rows, filterQuery) {
-    //case insensitive
-    filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
-
     return A(rows.filter((row) => {
       let rowValues = values(row);
-      let filterExp = new RegExp(filterQuery);
+      let filterExp = new RegExp(filterQuery, 'ig');
       set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));
       return row;
     }));
@@ -233,8 +239,7 @@ export default Component.extend({
       @private
     */
     editValue(row, key) {
-      let rows = get(this, 'rows');
-      rows.setEach('_editingRow', null);
+      get(this, 'rows').setEach('_editingRow', null);
       set(row, '_editingRow', key);
     },
   }

@@ -1,6 +1,6 @@
-[![npm version](https://badge.fury.io/js/ember-bulma.svg)](https://badge.fury.io/js/ember-bulma)
-[![Build Status](https://travis-ci.org/open-tux/ember-bulma.svg?branch=master)](https://travis-ci.org/open-tux/ember-bulma)
-[![Ember Observer Score](http://emberobserver.com/badges/ember-bulma.svg)](https://emberobserver.com/addons/ember-bulma)
+[![npm version](https://badge.fury.io/js/ember-sort-filter-table.svg)](https://badge.fury.io/js/ember-sort-filter-table)
+[![Build Status](https://travis-ci.org/crodriguez1a/ember-sort-filter-table.svg?branch=master)](https://travis-ci.org/crodriguez1a/ember-sort-filter-table)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-sort-filter-table.svg)](https://emberobserver.com/addons/ember-sort-filter-table)
 
 # ember-sort-filter-table
 
