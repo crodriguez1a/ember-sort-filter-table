@@ -1,11 +1,11 @@
 <main>
   {{#bulma-hero isWarning=true}}
-    {{#bulma-hero-content}}
+    <div class="hero-body">
       <h1 class="title">
         <i class="fa fa-table"></i> Ember Sort Filter Table
       </h1>
-    {{/bulma-hero-content}}
-    {{#bulma-hero-footer}}
+    </div>
+    <div class="hero-foot">
       {{#bulma-tabs isRight=true isBoxed=true}}
         <ul>
           <li class="is-active">
@@ -16,9 +16,9 @@
           </li>
         </ul>
       {{/bulma-tabs}}
-    {{/bulma-hero-footer}}
+    </div>
   {{/bulma-hero}}
-  {{#bulma-section}}
+  <section class="section">
     <div class="content version-notes">
       <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
       <ul>
@@ -103,18 +103,18 @@
         </p>
       {{/unless}}
     </div>
-  {{/bulma-section}}
+  </section>
 
-  {{#bulma-section}}
+  <section class="section">
     <div class="content">
       <h2 class="title">Installation</h2>
       {{#themed-syntax lang="bash" theme="dark"}}
 ember install ember-sort-filter-table
       {{/themed-syntax}}
     </div>
-  {{/bulma-section}}
+  </section>
 
-  {{#bulma-section}}
+  <section class="section">
     <h2 class="title">Usage</h2>
 
     {{#bulma-tabs isBoxed=true}}
@@ -124,7 +124,7 @@ ember install ember-sort-filter-table
         <li class="tab {{if (eq activeSection 'emberData') 'is-active'}}"><a {{action 'show' 'emberData'}}>Ember Data <i class="expiremental fa fa-flask"></i></a> </li>
       </ul>
     {{/bulma-tabs}}
-  {{/bulma-section}}
+  </section>
 
   {{#if isLoading}}
     Loading...
@@ -132,7 +132,7 @@ ember install ember-sort-filter-table
     {{component (concat 'demo-' activeSection) model=model}}
   {{/if}}
 
-  {{#bulma-footer}}
+  <footer class="footer">
     <div class="content">
       <p>
         <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><strong>Ember Sort Filter Table</strong></a> is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
@@ -148,5 +148,5 @@ ember install ember-sort-filter-table
         </li>
       </ul>
     {{/bulma-tabs}}
-  {{/bulma-footer}}
+  </footer>
 </main>
