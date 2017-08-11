@@ -19,7 +19,6 @@ module.exports = function(environment) {
     },
 
     APP: {
-      NAMESPACE: environment === 'production' ? 'ember-sort-filter-table' : ''
       // Here you can pass flags/options to your application instance
       // when it is created
     }
@@ -46,6 +45,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.rootURL = '/ember-sort-filter-table';
+    ENV.APP.NAMESPACE = 'ember-sort-filter-table';
   }
 
   return ENV;
