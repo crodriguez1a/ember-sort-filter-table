@@ -1,9 +1,3 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-const {
-  Component
-} = Ember;
-
-export default Component.extend({
-
-});
+export default Component.extend();

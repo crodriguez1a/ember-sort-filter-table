@@ -1,11 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { set } from '@ember/object';
 import layout from '../templates/components/sf-filter';
-
-const {
-  Component,
-  get,
-  set
-} = Ember;
 
 export default Component.extend({
   layout,

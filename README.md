@@ -1,6 +1,10 @@
+[![npm version](https://badge.fury.io/js/ember-sort-filter-table.svg)](https://badge.fury.io/js/ember-sort-filter-table)
+[![Build Status](https://travis-ci.org/crodriguez1a/ember-sort-filter-table.svg?branch=master)](https://travis-ci.org/crodriguez1a/ember-sort-filter-table)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-sort-filter-table.svg)](https://emberobserver.com/addons/ember-sort-filter-table)
+
 # ember-sort-filter-table
 
-A table addon for Ember-CLI with sorting and filtering. [Full Documentation & Demo](http://demos.evolutionaryapps.com/EmberSortFilterTable/)
+A table add-on for Ember-CLI with sorting and filtering. [Full Documentation & Demo](http://demos.evolutionaryapps.com/EmberSortFilterTable/)
 
 ## Installation
 		ember install ember-sort-filter-table

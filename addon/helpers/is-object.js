@@ -1,8 +1,4 @@
-import Ember from 'ember';
-
-const {
-  Helper: { helper }
-} = Ember;
+import { helper } from "@ember/component/helper";
 
 export function isObject(params/*, hash*/) {
   let obj = params[0];

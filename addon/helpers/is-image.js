@@ -1,8 +1,4 @@
-import Ember from 'ember';
-
-const {
-  Helper: { helper }
-} = Ember;
+import { helper } from "@ember/component/helper";
 
 export function isImage(params/*, hash*/) {
   let img = params[0];

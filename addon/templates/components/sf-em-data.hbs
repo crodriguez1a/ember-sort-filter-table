@@ -1,7 +1,7 @@
 {{#if hasBlock}}
   {{yield this}}
 {{else}}
-  {{#each (sort-by (concat group.groupSortKey ':' group.groupDirection) poja) as |record|}}
+  {{#each (sort-by (concat group.groupSortKey ':' group.groupSortDirection) poja) as |record|}}
     {{#if (hash-contains record group.groupQuery)}}
       <tr>
         {{#each-keys object=record as | key value|}}

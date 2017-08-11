@@ -1,11 +1,5 @@
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-
-const {
-  Controller,
-  get,
-  set
-} = Ember;
+import Controller from '@ember/controller';
+import { set, setProperties } from '@ember/object';
 
 export default Controller.extend({
   showInline: true,
@@ -15,7 +9,7 @@ export default Controller.extend({
 
   actions: {
     show(section) {
-      this.setProperties({
+      setProperties(this, {
         showInline: false,
         showBlock: false,
         showEmberData: false

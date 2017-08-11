@@ -1,27 +1,36 @@
 <main>
-  {{#bulma-hero isPrimary=true isBold=true}}
-    {{#bulma-hero-content}}
+  {{#ui-hero isWarning=true}}
+    <div class="hero-body">
       <h1 class="title">
         <i class="fa fa-table"></i> Ember Sort Filter Table
       </h1>
-    {{/bulma-hero-content}}
-    {{#bulma-hero-footer}}
-      {{#bulma-tabs isRight=true isBoxed=true}}
+    </div>
+    <div class="hero-foot">
+      {{#ui-tabs isRight=true isBoxed=true}}
         <ul>
           <li class="is-active">
-            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp;Source</a>
+            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i>&nbsp;Source</a>
           </li>
           <li>
             <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp;Email</a>
           </li>
         </ul>
-      {{/bulma-tabs}}
-    {{/bulma-hero-footer}}
-  {{/bulma-hero}}
-  {{#bulma-section}}
+
+      {{/ui-tabs}}
+    </div>
+  {{/ui-hero}}
+  <section class="section">
     <div class="content version-notes">
       <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
       <ul>
+      <li>
+        <strong><a href="https://github.com/crodriguez1a/ember-sort-filter-table/releases/tag/0.3.0" target="_blank">0.3.0</a></strong>
+        <ul>
+          <li>Fixes <a href="https://github.com/crodriguez1a/ember-sort-filter-table/issues/29" target="_blank">#29</a></li>
+          <li>Updates to Ember 2.14.x</li>
+          <li>Contextual component approach (backwards compatible)</li>
+        </ul>
+      </li>
       <li>
         <strong>0.2.6</strong>
         <ul>
@@ -91,33 +100,33 @@
       {{#unless older}}
         <p>
           <a href="#" {{action (toggle 'older' this)}}>
-            Older 
+            Older
           </a>
         </p>
       {{/unless}}
     </div>
-  {{/bulma-section}}
+  </section>
 
-  {{#bulma-section}}
+  <section class="section">
     <div class="content">
       <h2 class="title">Installation</h2>
       {{#themed-syntax lang="bash" theme="dark"}}
 ember install ember-sort-filter-table
       {{/themed-syntax}}
     </div>
-  {{/bulma-section}}
+  </section>
 
-  {{#bulma-section}}
+  <section class="section">
     <h2 class="title">Usage</h2>
 
-    {{#bulma-tabs isBoxed=true}}
+    {{#ui-tabs isBoxed=true}}
       <ul>
         <li class="tab {{if (eq activeSection 'inline') 'is-active'}}"><a {{action 'show' 'inline'}}>Inline</a></li>
         <li class="tab {{if (eq activeSection 'block') 'is-active'}}"><a {{action 'show' 'block'}}>Block</a></li>
         <li class="tab {{if (eq activeSection 'emberData') 'is-active'}}"><a {{action 'show' 'emberData'}}>Ember Data <i class="expiremental fa fa-flask"></i></a> </li>
       </ul>
-    {{/bulma-tabs}}
-  {{/bulma-section}}
+    {{/ui-tabs}}
+  </section>
 
   {{#if isLoading}}
     Loading...
@@ -125,21 +134,21 @@ ember install ember-sort-filter-table
     {{component (concat 'demo-' activeSection) model=model}}
   {{/if}}
 
-  {{#bulma-footer}}
+  <footer class="footer">
     <div class="content">
       <p>
         <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><strong>Ember Sort Filter Table</strong></a> is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
       </p>
     </div>
-    {{#bulma-tabs isRight=true}}
+    {{#ui-tabs isRight=true}}
       <ul>
         <li>
-          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp; Source</a>
+          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i>&nbsp; Source</a>
         </li>
         <li>
           <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp; Email</a>
         </li>
       </ul>
-    {{/bulma-tabs}}
-  {{/bulma-footer}}
+    {{/ui-tabs}}
+  </footer>
 </main>

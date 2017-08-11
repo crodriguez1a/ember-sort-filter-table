@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { moduleForComponent, test } from 'ember-qunit';
+import { moduleForComponent, test, skip } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 // since run-loop is disabled, wrap any code with asynchronous side-effects in a run
@@ -108,10 +108,10 @@ let alphaSortCamelCase = {
 let numericSort = {
   rows: [
     {
-      number: 0
+      number: "0"
     },
     {
-      number: 1
+      number: "1"
     }
   ]
 };
@@ -174,6 +174,10 @@ test('it renders', function(assert) {
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');
+});
+
+skip('contextual component implementation is backwards compatiple', function(assert) {
+  assert.ok(false);
 });
 
 test('it assembles header labels', function(assert) {
@@ -279,7 +283,6 @@ test('it sorts numerically', function(assert) {
 
   $sortLabel.click();
   assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '1', 'Table was sorted numerically');
-
   $sortLabel.click();
   assert.equal(this.$().find('tbody td').first().text().replace(/\n/g, '').replace(/ /g, ''), '0', 'Table was sorted again in the reverse');
 });

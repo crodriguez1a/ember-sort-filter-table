@@ -1,4 +1,4 @@
-{{#bulma-section}}
+<section class="section">
   <div class="content">
     <p>
      {{#themed-syntax lang="handlebars" theme="dark"}}
@@ -71,9 +71,9 @@ rows:[
 
       {{sf-table isBordered=true table=devs filterPlaceholder="Type android or ios"}}
     </div>
-{{/bulma-section}}
+</section>
 
-{{#bulma-section}}
+<section class="section">
   <div class="content">
     <h2 class="title">Configuration</h2>
     <ul class="config-list">
@@ -88,9 +88,9 @@ rows:[
       </li>
     </ul>
   </div>
-{{/bulma-section}}
+</section>
 
-{{#bulma-section}}
+<section class="section">
   <div class="content">
     <h3>Editable Example</h3>
     {{sf-table isStriped=true isBordered=true table=big editable=true edit=(action "editField") cancel=(action "cancelEditField")}}
@@ -118,6 +118,5 @@ myCancelAction(hash) {
   //=> { row: 'Class', key: 'String', value: 'String' }
 }
     {{/themed-syntax}}
-
   </div>
-{{/bulma-section}}
+</section>

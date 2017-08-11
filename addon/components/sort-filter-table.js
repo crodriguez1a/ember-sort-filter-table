@@ -1,13 +1,10 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import EmberObject, { get, set } from '@ember/object';
+import { A } from '@ember/array'
 import layout from '../templates/components/sort-filter-table';
-import computed, { sort, alias } from 'ember-computed-decorators';
+import { computed } from 'ember-decorators/object';
+import { alias } from 'ember-decorators/object/computed';
 import { isPrivateKey, primitiveKeys } from '../utils';
-
-const {
-  get,
-  set,
-  A: emArray
-} = Ember;
 
 const { values } = Object;
 
@@ -17,7 +14,7 @@ const { values } = Object;
   @class SortFilterTable
   @extends Ember.Component
 */
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   tagName: 'table',
   classNames: ['sort-filter-table table'],
@@ -38,7 +35,16 @@ export default Ember.Component.extend({
     @public
     @type String
   */
-  filterPlaceholder: "filter",
+  filterPlaceholder: 'filter',
+
+  /**
+    A query or filter provided by input
+
+    @property filter
+    @public
+    @type String
+  */
+  filter: '',
 
   /**
     Only display rows with primitive values and public keys
@@ -49,12 +55,9 @@ export default Ember.Component.extend({
   */
   @computed('table.rows', 'filter')
   rows(rows, filterQuery) {
-    //case insensitive
-    filterQuery = filterQuery ? filterQuery.toLowerCase() : '';
-
-    return emArray(rows.filter((row) => {
+    return A(rows.filter((row) => {
       let rowValues = values(row);
-      let filterExp = new RegExp(filterQuery);
+      let filterExp = new RegExp(filterQuery, 'ig');
       set(row, '_filtered', !(filterExp).test((rowValues.join(',')).toLowerCase()));
       return row;
     }));
@@ -69,7 +72,7 @@ export default Ember.Component.extend({
   */
   @computed('rows')
   headings(rows) {
-    return Ember.A(primitiveKeys(rows[0]));
+    return A(primitiveKeys(rows[0]));
   },
 
   /**
@@ -82,9 +85,8 @@ export default Ember.Component.extend({
   */
   @computed('headings')
   labels(headings) {
-    let rows = get(this, 'rows');
-    return Ember.A(headings.map((item) => {
-      return Ember.Object.create({
+    return A(headings.map((item) => {
+      return EmberObject.create({
         _key: item,
         name: this._handleSeparators(item),
         _sortClass: 'asc',
@@ -112,7 +114,7 @@ export default Ember.Component.extend({
     let isPrivate = str[0] === '_';
 
     if (!isPrivate) {
-      let separator = str.match(/[-  _]/g);
+      let separator = str.match(/[-\s_]/g);
       let camelCase = str.match(/[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*/);
       separator = camelCase || separator;
 
@@ -170,7 +172,25 @@ export default Ember.Component.extend({
     @type Number
     @public
   */
-  @alias('labels.length') totalColumns,
+  @alias('labels.length') totalColumns: 0,
+
+  /**
+    * Key to sorty by
+    *
+    * @property groupSortKey
+    * @type String
+    * @public
+    */
+  groupSortKey: 'none',
+
+  /**
+    * Sort direction (asc/desc)
+    *
+    * @property groupSortDirection
+    * @type String
+    * @public
+    */
+  groupSortDirection: 'desc',
 
   actions: {
 
@@ -219,8 +239,7 @@ export default Ember.Component.extend({
       @private
     */
     editValue(row, key) {
-      let rows = get(this, 'rows');
-      rows.setEach('_editingRow', null);
+      get(this, 'rows').setEach('_editingRow', null);
       set(row, '_editingRow', key);
     },
   }

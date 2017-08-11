@@ -1,28 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import layout from '../templates/components/sf-rows';
 
-const {
-  Component
-} = Ember;
-
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
-  tagName: '',
-  /**
-    * Key to sorty by
-    *
-    * @property sortKey
-    * @type String
-    * @public
-    */
-  sortKey: null,
-
-  /**
-    * Sort direction (asc/desc)
-    *
-    * @property direction
-    * @type String
-    * @public
-    */
-  direction: 'desc'
+  tagName: ''
 });

@@ -1,11 +1,5 @@
-import Ember from 'ember';
-
-const {
-  Route,
-  get,
-  set,
-  run: { later }
-} = Ember;
+import Route from "@ember/routing/route";
+import { get } from '@ember/object';
 
 export default Route.extend({
   model() {
@@ -17,7 +11,7 @@ export default Route.extend({
   },
 
   actions: {
-    loading(transition, originRoute) {
+    loading(/*transition, originRoute*/) {
       this.controllerFor('application').set('isLoading', true);
     }
   }

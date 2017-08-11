@@ -1,16 +1,14 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get, set } from '@ember/object';
 import layout from '../templates/components/sf-headings';
-import computed from 'ember-computed-decorators';
-
-const {
-  Component,
-  get,
-  set,
-} = Ember;
 
 export default Component.extend({
   layout,
   tagName: '',
+  init() {
+    this._super(...arguments);
+    this._syncWithGroup();
+  },
 
   actions: {
     /**
@@ -22,11 +20,23 @@ export default Component.extend({
       */
     sort(key) {
       // Reference current direction
-      let dir = get(this, 'group.groupDirection');
+      let dir = get(this, 'group.groupSortDirection');
       // Toggle direction
-      set(this, 'group.groupDirection', dir === 'asc' ? 'desc' : 'asc');
+      set(this, 'group.groupSortDirection', dir === 'asc' ? 'desc' : 'asc');
       // Update sort key
       set(this, 'group.groupSortKey', key);
+    }
+  },
+
+  /**
+    Provide headings to group
+
+    @method _syncWithGroup
+    @private
+  */
+  _syncWithGroup() {
+    if (get(this, 'headings')) {
+      set(this, 'group.groupHeadings', get(this, 'headings').getEach('key'));
     }
   }
 });

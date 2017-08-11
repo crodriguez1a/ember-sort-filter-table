@@ -1,12 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { get } from '@ember/object';
 import layout from '../templates/components/sf-em-data';
-import computed from 'ember-computed-decorators';
-
-const {
-  Component,
-  get,
-  set
-} = Ember;
+import { computed } from 'ember-decorators/object';
 
 export default Component.extend({
   layout,
@@ -23,6 +18,40 @@ export default Component.extend({
   shouldListNested: true,
 
   /**
+    Extract plain object from ember data internal model
+
+    @method _extractPojo
+    @param store {Service}
+    @private
+  */
+  _extractPojo(store) {
+    return store.toArray().map((item) => get(item, '_internalModel._data'));
+  },
+
+  /**
+    Filter out nodes when a corresponding header was not provided
+    headings ['name', 'address']
+    data [{ name, address, phone }, {...]
+    result [ {name, address }, {... ]
+
+    @method _filterByHeadings
+    @param arr {Array}
+    @param headings {Array}
+    @returns Array
+    @private
+  */
+  _filterByHeadings(arr, headings) {
+    return arr.map((hash) => {
+      for (let key in hash) {
+        if (!headings.includes(key)) {
+          delete hash[key]
+          return hash;
+        }
+      }
+    })
+  },
+
+  /**
     * Convert ember data internal model into plain array
     *
     * @property listNested
@@ -33,18 +62,14 @@ export default Component.extend({
   @computed('store')
   poja(store) {
     let objArr = [];
-    if (store) {
-      store.toArray().map((item) => {
-        let arr = {};
-        // Extract pojo from record
-        let internalModel = get(item, '_internalModel._data');
+    let headings = get(this, 'group.groupHeadings');
 
-        // Strip away ember data properties
-        for (var i in internalModel) {
-          arr[i] = internalModel[i];
-        }
-        objArr.push(arr);
-      });
+    if (store) {
+      objArr = this._extractPojo(store);
+
+      if (headings && headings.length) {
+        objArr = this._filterByHeadings(objArr, headings);
+      }
     }
     return objArr;
   }
