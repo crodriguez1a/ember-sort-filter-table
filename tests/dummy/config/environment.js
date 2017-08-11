@@ -21,6 +21,10 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    'ember-bulma': {
+      except: ['bulma-container'] // excludes `bulma-container` https://github.com/open-tux/ember-bulma/issues/78
     }
   };
 
