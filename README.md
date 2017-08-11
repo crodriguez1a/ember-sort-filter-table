@@ -4,7 +4,7 @@
 
 # ember-sort-filter-table
 
-A table add-on for Ember-CLI with sorting and filtering. [Full Documentation & Demo](http://demos.evolutionaryapps.com/EmberSortFilterTable/)
+A table add-on for Ember-CLI with sorting and filtering. [Full Documentation & Demo](http://crodriguez1a.github.io/ember-themed-syntax)
 
 ## Installation
 		ember install ember-sort-filter-table
