@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import config from '../config/environment';
 
-const PREFIX = config.APP.NAMESPACE;
+const PREFIX = config.APP.NAMESPACE || '';
 
 const {
   JSONAPIAdapter
