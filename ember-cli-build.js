@@ -7,6 +7,11 @@ module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     'ember-cli-babel': {
       includePolyfill: true
+    },
+    sassOptions: {
+      includePaths: [
+        'node_modules/bulma'
+      ]
     }
   });
 

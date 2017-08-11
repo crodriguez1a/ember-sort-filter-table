@@ -1,23 +1,23 @@
 <main>
-  {{#bulma-hero isWarning=true}}
+  {{#ui-hero isWarning=true}}
     <div class="hero-body">
       <h1 class="title">
         <i class="fa fa-table"></i> Ember Sort Filter Table
       </h1>
     </div>
     <div class="hero-foot">
-      {{#bulma-tabs isRight=true isBoxed=true}}
+      {{#ui-tabs isRight=true isBoxed=true}}
         <ul>
           <li class="is-active">
-            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp;Source</a>
+            <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i>&nbsp;Source</a>
           </li>
           <li>
             <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp;Email</a>
           </li>
         </ul>
-      {{/bulma-tabs}}
+      {{/ui-tabs}}
     </div>
-  {{/bulma-hero}}
+  {{/ui-hero}}
   <section class="section">
     <div class="content version-notes">
       <h4><i class="fa fa-sticky-note"></i> Version Notes</h4>
@@ -117,13 +117,13 @@ ember install ember-sort-filter-table
   <section class="section">
     <h2 class="title">Usage</h2>
 
-    {{#bulma-tabs isBoxed=true}}
+    {{#ui-tabs isBoxed=true}}
       <ul>
         <li class="tab {{if (eq activeSection 'inline') 'is-active'}}"><a {{action 'show' 'inline'}}>Inline</a></li>
         <li class="tab {{if (eq activeSection 'block') 'is-active'}}"><a {{action 'show' 'block'}}>Block</a></li>
         <li class="tab {{if (eq activeSection 'emberData') 'is-active'}}"><a {{action 'show' 'emberData'}}>Ember Data <i class="expiremental fa fa-flask"></i></a> </li>
       </ul>
-    {{/bulma-tabs}}
+    {{/ui-tabs}}
   </section>
 
   {{#if isLoading}}
@@ -138,15 +138,15 @@ ember install ember-sort-filter-table
         <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><strong>Ember Sort Filter Table</strong></a> is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
       </p>
     </div>
-    {{#bulma-tabs isRight=true}}
+    {{#ui-tabs isRight=true}}
       <ul>
         <li>
-          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-code-fork"></i>&nbsp; Source</a>
+          <a href="https://github.com/crodriguez1a/ember-sort-filter-table" target="_blank"><i class="fa fa-github"></i>&nbsp; Source</a>
         </li>
         <li>
           <a href="mailto:crodriguez1a@gmail.com"><i class="fa fa-paper-plane"></i>&nbsp; Email</a>
         </li>
       </ul>
-    {{/bulma-tabs}}
+    {{/ui-tabs}}
   </footer>
 </main>
