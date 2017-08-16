@@ -1,13 +1,13 @@
 {{#ui-tabs isBoxed=true}}
   <ul>
     <li class="tab {{if (eq activeSection 'inline') 'is-active'}}">
-      <a class="t-tab-inline" {{action show 'inline' (query-params tab=activeSection)}}>Inline</a>
+      <a class="t-tab-inline" {{action show 'inline'}}>Inline</a>
     </li>
     <li class="tab {{if (eq activeSection 'block') 'is-active'}}">
-      <a class="t-tab-block" {{action show 'block' (query-params tab=activeSection)}}>Block</a>
+      <a class="t-tab-block" {{action show 'block'}}>Block</a>
     </li>
     <li class="tab {{if (eq activeSection 'emberData') 'is-active'}}">
-      <a class="t-tab-data" {{action show 'emberData' (query-params tab=activeSection)}}>Ember Data <i class="expiremental fa fa-flask"></i></a>
+      <a class="t-tab-data" {{action show 'emberData'}}>Ember Data <i class="expiremental fa fa-flask"></i></a>
     </li>
   </ul>
 {{/ui-tabs}}

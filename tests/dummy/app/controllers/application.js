@@ -8,7 +8,7 @@ export default Controller.extend({
   activeSection: 'inline',
 
   actions: {
-    show(section, qp) {
+    show(section) {
       setProperties(this, {
         showInline: false,
         showBlock: false,
