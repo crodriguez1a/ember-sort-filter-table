@@ -8,7 +8,7 @@ export default Controller.extend({
   activeSection: 'inline',
 
   actions: {
-    show(section) {
+    show(section, qp) {
       setProperties(this, {
         showInline: false,
         showBlock: false,
@@ -16,6 +16,7 @@ export default Controller.extend({
       });
       set(this, `show${section}`, true);
       set(this, 'activeSection', section);
+      set(this, 'tab', section);
     }
   }
 });
