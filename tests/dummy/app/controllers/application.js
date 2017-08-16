@@ -5,7 +5,15 @@ export default Controller.extend({
   showInline: true,
   showBlock: false,
   showEmberData: false,
-  activeSection: 'inline',
+
+  /**
+    Active tab rendered
+
+    @property tab
+    @default inline
+    @type String
+  */
+  tab: 'inline',
 
   actions: {
     show(section) {
@@ -15,7 +23,6 @@ export default Controller.extend({
         showEmberData: false
       });
       set(this, `show${section}`, true);
-      set(this, 'activeSection', section);
       set(this, 'tab', section);
     }
   }

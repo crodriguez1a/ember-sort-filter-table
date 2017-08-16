@@ -5,7 +5,7 @@ export default Component.extend({
     @property Name of currently active section
     @type Sting
   */
-  activeSection: null,
+  tab: null,
 
   /**
     @property Action to perform to show active section
