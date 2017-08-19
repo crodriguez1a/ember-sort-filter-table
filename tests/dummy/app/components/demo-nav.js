@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { get } from '@ember/object';
 
 export default Component.extend({
   /**
@@ -11,5 +12,13 @@ export default Component.extend({
     @property Action to perform to show active section
     @type Function
   */
-  show: null
+  show: null,
+
+  actions: {
+    show() {
+      if (get(this, 'show')) {
+        get(this, 'show')(...arguments);
+      }
+    }
+  }
 });
