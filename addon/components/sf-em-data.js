@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { get } from '@ember/object';
 import layout from '../templates/components/sf-em-data';
 import { computed } from 'ember-decorators/object';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   layout,
@@ -72,6 +73,6 @@ export default Component.extend({
         objArr = this._filterByHeadings(objArr, headings);
       }
     }
-    return objArr;
+    return objArr.map((item) => assign({}, item));
   }
 });
