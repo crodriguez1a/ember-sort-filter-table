@@ -6,8 +6,8 @@ const {
 
 export function hashContains(params) {
   // Stringify the hash
-  let hash = params[0];
-  let str = stringify(hash);
+  let _hash = params[0];
+  let str = stringify(_hash);
 
   // Convert the query to a regex
   let query = params[1] || '';

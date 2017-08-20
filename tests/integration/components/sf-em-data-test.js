@@ -8,12 +8,9 @@ import { run } from '@ember/runloop';
 
 let store;
 
-const Person = DS.Model.extend({
+const person = DS.Model.extend({
   name: DS.attr('string'),
-  nickName: DS.attr('string'),
-  toString() {
-    return `<Person#${this.get('id')}>`;
-  }
+  nickName: DS.attr('string')
 });
 
 const adapter = DS.Adapter.extend({
@@ -32,10 +29,7 @@ moduleForComponent('sf-em-data', 'Integration | Component | carlos:sf em data', 
   integration: true,
   beforeEach() {
     component.setContext(this);
-    store = createStore({
-      adapter: adapter,
-      person: Person
-    });
+    store = createStore({ adapter, person });
   },
   afterEach() {
     component.removeContext();
