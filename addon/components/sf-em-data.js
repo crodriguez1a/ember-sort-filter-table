@@ -41,13 +41,13 @@ export default Component.extend({
     @private
   */
   _filterByHeadings(arr, headings) {
-    return arr.map((hash) => {
-      for (let key in hash) {
+    return arr.map((obj) => {
+      for (let key in obj) {
         if (!headings.includes(key)) {
-          delete hash[key]
-          return hash;
+          delete obj[key]
+          return obj;
         } else {
-          return hash;
+          return obj;
         }
       }
     })

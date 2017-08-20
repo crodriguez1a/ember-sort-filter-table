@@ -118,15 +118,10 @@ ember install ember-sort-filter-table
 
   <section class="section">
     <h2 class="title">Usage</h2>
-
     {{demo-nav tab=tab show=(action 'show')}}
   </section>
 
-  {{#if isLoading}}
-    Loading...
-  {{else}}
-    {{component (concat 'demo-' tab) model=model}}
-  {{/if}}
+  {{component (concat 'demo-' tab) model=model}}
 
   <footer class="footer">
     <div class="content">

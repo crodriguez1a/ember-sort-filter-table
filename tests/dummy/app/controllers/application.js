@@ -1,11 +1,7 @@
 import Controller from '@ember/controller';
-import { set, setProperties } from '@ember/object';
+import { set } from '@ember/object';
 
 export default Controller.extend({
-  showInline: true,
-  showBlock: false,
-  showEmberData: false,
-
   /**
     Active tab rendered
 
@@ -17,12 +13,6 @@ export default Controller.extend({
 
   actions: {
     show(section) {
-      setProperties(this, {
-        showInline: false,
-        showBlock: false,
-        showEmberData: false
-      });
-      set(this, `show${section}`, true);
       set(this, 'tab', section);
     }
   }
