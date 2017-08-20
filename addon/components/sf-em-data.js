@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { get } from '@ember/object';
 import layout from '../templates/components/sf-em-data';
 import { computed } from 'ember-decorators/object';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   layout,
@@ -41,11 +42,13 @@ export default Component.extend({
     @private
   */
   _filterByHeadings(arr, headings) {
-    return arr.map((hash) => {
-      for (let key in hash) {
+    return arr.map((obj) => {
+      for (let key in obj) {
         if (!headings.includes(key)) {
-          delete hash[key]
-          return hash;
+          delete obj[key]
+          return obj;
+        } else {
+          return obj;
         }
       }
     })
@@ -66,11 +69,10 @@ export default Component.extend({
 
     if (store) {
       objArr = this._extractPojo(store);
-
       if (headings && headings.length) {
         objArr = this._filterByHeadings(objArr, headings);
       }
     }
-    return objArr;
+    return objArr.map((item) => assign({}, item));
   }
 });

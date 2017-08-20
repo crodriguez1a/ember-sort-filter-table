@@ -146,10 +146,7 @@ let notAllPrimitive = {
     {
       hello: 'world',
       yo: true,
-      mtvraps: 1,
-      toString() {
-        return 'string';
-      }
+      mtvraps: 1
     }
   ]
 };
