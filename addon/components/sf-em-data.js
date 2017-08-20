@@ -46,6 +46,8 @@ export default Component.extend({
         if (!headings.includes(key)) {
           delete hash[key]
           return hash;
+        } else {
+          return hash;
         }
       }
     })
@@ -66,7 +68,6 @@ export default Component.extend({
 
     if (store) {
       objArr = this._extractPojo(store);
-
       if (headings && headings.length) {
         objArr = this._filterByHeadings(objArr, headings);
       }
