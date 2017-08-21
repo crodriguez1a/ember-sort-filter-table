@@ -4,6 +4,8 @@ import layout from '../templates/components/sf-em-data';
 import { computed } from 'ember-decorators/object';
 import { assign } from '@ember/polyfills';
 
+const { keys } = Object;
+
 export default Component.extend({
   layout,
   tagName: '',
@@ -43,12 +45,17 @@ export default Component.extend({
   */
   _filterByHeadings(arr, headings) {
     return arr.map((obj) => {
-      for (let key in obj) {
+    // prevent any mutation on the original object
+    let _obj = assign({}, obj);
+      // when headings and keys match, return early
+      if (headings.length === keys(_obj).length) {
+        return _obj
+      }
+      // otherwise, remove nodes where headings array does not include key
+      for (let key in _obj) {
         if (!headings.includes(key)) {
-          delete obj[key]
-          return obj;
-        } else {
-          return obj;
+          delete _obj[key]
+          return _obj;
         }
       }
     })

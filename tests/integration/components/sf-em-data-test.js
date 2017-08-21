@@ -66,7 +66,8 @@ test('it renders only the number of rows and columns corresponding with the head
         type: 'person',
         id: '1',
         attributes: {
-          name: 'Someone MaJoe'
+          name: 'Someone MaJoe',
+          nickName: 'Super MaJoe'
         }
       }
     ]
