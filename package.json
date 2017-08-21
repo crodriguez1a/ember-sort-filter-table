@@ -1,6 +1,6 @@
 {
   "name": "ember-sort-filter-table",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "A sortable/filterable table add-on for your ember application",
   "keywords": [
     "ember-addon"
