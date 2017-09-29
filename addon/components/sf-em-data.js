@@ -28,7 +28,7 @@ export default Component.extend({
     @private
   */
   _extractPojo(store) {
-    return store.toArray().map((item) => get(item, '_internalModel._data'));
+    return store.toArray().map((item) => get(item, '_internalModel.__data'));
   },
 
   /**
@@ -48,17 +48,17 @@ export default Component.extend({
     // prevent any mutation on the original object
     let _obj = assign({}, obj);
       // when headings and keys match, return early
-      if (headings.length === keys(_obj).length) {
+      if (headings.join() === keys(_obj).join()) {
         return _obj
       }
       // otherwise, remove nodes where headings array does not include key
       for (let key in _obj) {
         if (!headings.includes(key)) {
           delete _obj[key]
-          return _obj;
         }
       }
-    })
+      return _obj;
+    });
   },
 
   /**
