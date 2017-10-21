@@ -11,13 +11,13 @@ export default Component.extend({
   tagName: '',
 
   /**
-    * Signal if nested arrays or objects should be displayed as a list
-    *
-    * @property shouldListNested
-    * @default true
-    * @type Bool
-    * @public
-    */
+    Signal if nested arrays or objects should be displayed as a list
+
+    @property shouldListNested
+    @default true
+    @type {Bool}
+    @public
+  */
   shouldListNested: true,
 
   /**
@@ -40,7 +40,7 @@ export default Component.extend({
     @method _filterByHeadings
     @param arr {Array}
     @param headings {Array}
-    @returns Array
+    @returns {Array}
     @private
   */
   _filterByHeadings(arr, headings) {
@@ -60,15 +60,34 @@ export default Component.extend({
       return _obj;
     });
   },
+  /**
+    Re-arranges records in the same order the headings suggest
+    headings suggest ...["foo", "baz"]
+    re-arrange records from... [{baz:"value", foo:"value"}] to [{foo:"value", baz:"value"}]
+
+    @method _arrangeByHeadings
+    @param arr {Array} POJA of ember data records
+    @param headings {Array} List of headings
+    @returns {Array}
+    @private
+  */
+  _arrangeByHeadings(arr, headings) {
+    return arr.map((obj) => {
+      return headings.reduce((hash, heading) => {
+        hash[heading] = obj[heading];
+        return hash;
+      }, {});
+    });
+  },
 
   /**
-    * Convert ember data internal model into plain array
-    *
-    * @property listNested
-    * @default true
-    * @type Bool
-    * @public
-    */
+    Convert ember data internal model into plain array
+
+    @property listNested
+    @default true
+    @type {Bool}
+    @public
+  */
   @computed('store')
   poja(store) {
     let objArr = [];
@@ -78,6 +97,7 @@ export default Component.extend({
       objArr = this._extractPojo(store);
       if (headings && headings.length) {
         objArr = this._filterByHeadings(objArr, headings);
+        objArr = this._arrangeByHeadings(objArr, headings);
       }
     }
     return objArr.map((item) => assign({}, item));

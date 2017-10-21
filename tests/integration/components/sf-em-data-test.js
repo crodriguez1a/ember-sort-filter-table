@@ -86,7 +86,7 @@ test('it renders only the number of rows and columns corresponding with the head
   assert.equal(component.rows.count, 1, 'A single row rendered');
 });
 
-test('it renders data in the same order the headings suggest', async function(assert) {
+test('carlos:it renders data in the same order the headings suggest', async function(assert) {
   let recordArray = store.recordArrayManager
     .createAdapterPopulatedRecordArray('person', null);
 
@@ -114,6 +114,19 @@ test('it renders data in the same order the headings suggest', async function(as
     {{#sf-table class="is-striped" as | sf |}}
       {{sf.headings
         headings=(array
+          (hash key="address" display="Address")
+          (hash key="nickName" display="Nickety Name")
+          (hash key="name" display="Name")
+        )}}
+      {{sf.data store=model}}
+    {{/sf-table}}
+  `);
+  assert.equal(component.rows.text.join(), "123 hero lane,Super MaJoe,Someone MaJoe", 'It rendered the records arranged in the correct order');
+
+  this.render(hbs`
+    {{#sf-table class="is-striped" as | sf |}}
+      {{sf.headings
+        headings=(array
           (hash key="nickName" display="Nickety Name")
           (hash key="name" display="Name")
           (hash key="address" display="Address")
@@ -121,7 +134,7 @@ test('it renders data in the same order the headings suggest', async function(as
       {{sf.data store=model}}
     {{/sf-table}}
   `);
-  assert.equal(component.rows.text.join(), "Super Majoe,Someone Majoe,123 hero lane", 'A single row rendered');
+  assert.equal(component.rows.text.join(), "Super MaJoe,Someone MaJoe,123 hero lane", 'It rendered the records arranged in the correct order');
 });
 
 test('it renders only the number of rows and columns corresponding with the headings hash: Multiple', async function(assert) {

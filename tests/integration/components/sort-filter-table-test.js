@@ -173,7 +173,7 @@ test('it renders', function(assert) {
   assert.equal(this.$().text().trim(), 'template block text');
 });
 
-skip('contextual component implementation is backwards compatiple', function(assert) {
+skip('contextual component implementation is backwards compatible', function(assert) {
   assert.ok(false);
 });
 
