@@ -86,7 +86,7 @@ test('it renders only the number of rows and columns corresponding with the head
   assert.equal(component.rows.count, 1, 'A single row rendered');
 });
 
-test('carlos:it renders data in the same order the headings suggest', async function(assert) {
+test('it renders data in the same order the headings suggest', async function(assert) {
   let recordArray = store.recordArrayManager
     .createAdapterPopulatedRecordArray('person', null);
 
