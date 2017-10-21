@@ -25,7 +25,7 @@ const component = create({
   rows: { count: count(), scope: '.table td', text: text('', {multiple: true }) }
 })
 
-moduleForComponent('sf-em-data', 'Integration | Component | carlos:sf em data', {
+moduleForComponent('sf-em-data', 'Integration | Component | sf em data', {
   integration: true,
   beforeEach() {
     component.setContext(this);
