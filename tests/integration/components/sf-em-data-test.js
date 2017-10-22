@@ -21,11 +21,11 @@ const adapter = DS.Adapter.extend({
 
 const component = create({
   table: text('.table'),
-  headings: { count: count(), scope: '.table th' },
-  rows: { count: count(), scope: '.table td' },
+  headings: { count: count(), scope: '.table th', text: text('', {multiple: true }) },
+  rows: { count: count(), scope: '.table td', text: text('', {multiple: true }) }
 })
 
-moduleForComponent('sf-em-data', 'Integration | Component | carlos:sf em data', {
+moduleForComponent('sf-em-data', 'Integration | Component | sf em data', {
   integration: true,
   beforeEach() {
     component.setContext(this);
@@ -36,14 +36,8 @@ moduleForComponent('sf-em-data', 'Integration | Component | carlos:sf em data', 
   }
 });
 
-// TODO test fix for #29
-
 test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
-
   this.render(hbs`{{sf-em-data}}`);
-
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
@@ -92,6 +86,57 @@ test('it renders only the number of rows and columns corresponding with the head
   assert.equal(component.rows.count, 1, 'A single row rendered');
 });
 
+test('it renders data in the same order the headings suggest', async function(assert) {
+  let recordArray = store.recordArrayManager
+    .createAdapterPopulatedRecordArray('person', null);
+
+  let payload = {
+    data: [
+      {
+        type: 'person',
+        id: '1',
+        attributes: {
+          name: 'Someone MaJoe',
+          address: '123 hero lane',
+          nickName: 'Super MaJoe'
+        }
+      }
+    ]
+  };
+
+  await run(() => {
+    recordArray._setInternalModels(store._push(payload), payload);
+  });
+
+  this.model = recordArray;
+
+  this.render(hbs`
+    {{#sf-table class="is-striped" as | sf |}}
+      {{sf.headings
+        headings=(array
+          (hash key="address" display="Address")
+          (hash key="nickName" display="Nickety Name")
+          (hash key="name" display="Name")
+        )}}
+      {{sf.data store=model}}
+    {{/sf-table}}
+  `);
+  assert.equal(component.rows.text.join(), "123 hero lane,Super MaJoe,Someone MaJoe", 'It rendered the records arranged in the correct order');
+
+  this.render(hbs`
+    {{#sf-table class="is-striped" as | sf |}}
+      {{sf.headings
+        headings=(array
+          (hash key="nickName" display="Nickety Name")
+          (hash key="name" display="Name")
+          (hash key="address" display="Address")
+        )}}
+      {{sf.data store=model}}
+    {{/sf-table}}
+  `);
+  assert.equal(component.rows.text.join(), "Super MaJoe,Someone MaJoe,123 hero lane", 'It rendered the records arranged in the correct order');
+});
+
 test('it renders only the number of rows and columns corresponding with the headings hash: Multiple', async function(assert) {
   let recordArray = store.recordArrayManager
     .createAdapterPopulatedRecordArray('person', null);
@@ -103,7 +148,9 @@ test('it renders only the number of rows and columns corresponding with the head
         id: '1',
         attributes: {
           name: 'Someone MaJoe',
-          nickName: 'Super MaJoe'
+          nickName: 'Super MaJoe',
+          occupation: 'super hero',
+          address: '123 hero lane'
         }
       }
     ]
